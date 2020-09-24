@@ -1,0 +1,14 @@
+.transcForm{
+    .transcForm_input-ammount{
+        grid-area: a;
+    }
+    .transcForm_input-category{
+        grid-area: c;
+    }
+    .transcForm_input-description{
+        grid-area: d;
+    }
+    .transcForm_input-tags{
+        grid-area: t;
+    }
+}

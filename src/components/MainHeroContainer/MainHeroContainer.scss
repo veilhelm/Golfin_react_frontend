@@ -1,0 +1,44 @@
+
+.heroContainer{
+    .N_btn-week{
+        grid-area: week;
+    }
+    
+    .N_btn-month{
+        grid-area: month;
+    }
+    
+    .N_btn-year{
+        grid-area: year;
+    }
+    .main_chart{
+        grid-area: graph;
+    }
+    .hero_title{
+        color: white;
+        grid-area: balance;
+        align-self: start;
+        text-align: center;
+    }
+    .hero_title-desc{
+        font-size: 1rem;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+    .hero_title-balance{
+        font-size: 2.5rem;
+    }
+    .hero_selector-inc{
+        grid-area: selector1;
+        align-self: start;
+        justify-self: end;
+    }
+    .hero_selector-exp{
+        grid-area: selector2;
+        align-self: start;
+        justify-self: start;
+    }
+    .spacing{
+        height: 5px;
+    }
+}
