@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
+import { useObserver } from "../../utils/Oberservers"
 import Input from "../Inputs"
+import RoundedButton from "../roundedButton"
 import "./TransactionForm.scss"
 
 const MainWrapper = styled.div`
@@ -12,7 +14,7 @@ const MainWrapper = styled.div`
     padding-top: 10px;
     height: 20vh;
     z-index:1040;
-    transform: translate( 0,-40%);
+    transform: translateY(-40%);
     animation: moveInBottom 1s ease-out 1s;
     animation-fill-mode: backwards;
     display: grid;
@@ -24,12 +26,20 @@ const MainWrapper = styled.div`
     ". . . . . b . . . . .";
     align-items: start;
     justify-items: center;
-
+   
 `
 
 export default function TransactionForm ({kind}) {
+    const DOMtranscForm = useRef(null)
+    const [animationIsOver, setAnimationIsOver] = useState(false)
+    const observer = useObserver(DOMtranscForm, 1, ["sticky", "nonOffset"], animationIsOver)
+    useEffect( () =>{
+        observer.observe(DOMtranscForm.current)
+        setTimeout(()=> setAnimationIsOver(true), 1000)
+    })
+    
     return(
-        <MainWrapper className="transcForm">
+        <MainWrapper ref={DOMtranscForm} className="transcForm">
                 <Input 
                     className="transcForm_input-ammount"
                     type="number"
@@ -63,6 +73,13 @@ export default function TransactionForm ({kind}) {
                     kind={kind}
                     placeHolder="tags"
                 ></Input>
+                <RoundedButton 
+                className="transcForm_input-button"
+                type="submit"
+                kind={kind}
+                size="4rem"
+                onClick={() => console.log("im working")}
+                >+</RoundedButton>
         </MainWrapper>
     )
 }

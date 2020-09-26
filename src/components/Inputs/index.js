@@ -4,7 +4,7 @@ import styled from "styled-components"
 const InputField =styled.input`
     border: none;
     width: 100%;
-    border-bottom: ${props => props.kind === "inc" ? "0.2rem solid #0CCBF4" : "0.2rem solid #9F2E2E" };
+    border-bottom: ${props => props.kind === "inc" ? "0.2rem solid #0FC721" : "0.2rem solid #9F2E2E" };
     background: none;
     font-family: "Lato", sans-serif;
     text-align: center;
@@ -15,7 +15,7 @@ const InputField =styled.input`
     appearance: none;
     color: white;
     outline: none;
-    box-shadow: ${props => props.kind === "inc" ? "inset 0px -5px 0px rgba(12, 203, 244, 0.2)" : "inset 0px -5px 0px rgba(159, 46, 46, 0.4)"};
+    box-shadow: ${props => props.kind === "inc" ? "inset 0px -5px 0.2px rgba(15, 199, 33, 0.2)" : "inset 0px -5px 0px rgba(159, 46, 46, 0.4)"};
     &[type=number]::-webkit-inner-spin-button,
     &[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none; 

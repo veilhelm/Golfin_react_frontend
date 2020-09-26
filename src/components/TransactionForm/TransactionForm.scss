@@ -11,4 +11,13 @@
     .transcForm_input-tags{
         grid-area: t;
     }
+    .transcForm_input-button{
+        grid-area: b;
+    }
+}
+
+.sticky.nonOffset{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }

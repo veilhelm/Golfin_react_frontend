@@ -1,16 +1,15 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { ThemeProvider } from "styled-components"
 
 const Rounded = styled.button`
 background: #333333;
 box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-width: 50px;
-height: 50px;
+width: ${props => props.theme.size};
+height: ${props => props.theme.size};
 font-size: 3rem;
 color: ${props => props.theme.color};
 border-radius: 100px;
 border: none;
-margin-top: 20px;
 transition: all .2s;
 outline: none !important;
 &:hover {
@@ -23,16 +22,16 @@ outline: none !important;
   }
 `
 
-export default function RoundedButton ({children, className, kind}) {
+export default function RoundedButton ({children, className, kind, type, size, onClick}) {
     const theme = {}
+    theme.color = "white"
+    if(kind) theme.color = kind === "inc" ? "#0FC721" : "#9F2E2E"
+    theme.size = size || "4rem"
     
-    if(kind){
-        theme.color = kind === "inc" ? "#0CCBF4" : "#9F2E2E"
-    }
-    
-    theme.color = ""
     
     return (
-        <Rounded className={className}>{children}</Rounded>
+      <ThemeProvider theme={theme}>
+        <Rounded onClick={onClick} type={type} className={className}>{children}</Rounded>
+      </ThemeProvider>
     )
 }
