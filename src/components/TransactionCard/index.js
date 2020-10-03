@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import { useObserver } from "../../utils/Oberservers"
 import "./TransactionCard.scss"
 
 const Card = styled.div`
@@ -22,15 +21,29 @@ const Card = styled.div`
     align-items: start;
     justify-items: center;
     margin-bottom: 1vh;
-    opacity: 1;
+    opacity: 0;
+    transform: translateX(50%);
+    transition: all .5s ease-in;
 `
 export default function TransactionCard () {
+    const [animationIsOver, setAnimationIsOver] = useState(false)
+     
     const DOMcard = useRef(null)
-    const observer = useObserver(DOMcard, 1, ["transaction-card__hidden","nonAnimated"])
-    useEffect( () =>{
+    const observerObtions = {
+        threshold: 0,
+    }
+
+    const observer = new IntersectionObserver( (entries) => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting) return 
+            if(entry.isIntersecting && animationIsOver) entry.target.classList.add("appear", "fade-in")
+        })
+    }, observerObtions)
+
+    useEffect(() =>{
+        setTimeout(()=> setAnimationIsOver(true), 1500)
         observer.observe(DOMcard.current)
     })
-
     return (
         <Card ref={DOMcard}></Card>
     )

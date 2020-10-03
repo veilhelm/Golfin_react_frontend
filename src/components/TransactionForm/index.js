@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, {  useRef } from "react"
 import styled from "styled-components"
-import { useObserver } from "../../utils/Oberservers"
 import Input from "../Inputs"
 import RoundedButton from "../roundedButton"
 import "./TransactionForm.scss"
@@ -31,12 +30,6 @@ const MainWrapper = styled.div`
 
 export default function TransactionForm ({kind}) {
     const DOMtranscForm = useRef(null)
-    const [animationIsOver, setAnimationIsOver] = useState(false)
-    const observer = useObserver(DOMtranscForm, 1, ["sticky", "nonOffset"], animationIsOver)
-    useEffect( () =>{
-        observer.observe(DOMtranscForm.current)
-        setTimeout(()=> setAnimationIsOver(true), 1000)
-    })
     
     return(
         <MainWrapper ref={DOMtranscForm} className="transcForm">
