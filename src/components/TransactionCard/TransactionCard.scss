@@ -1,4 +1,20 @@
+@import "./src/index.scss";
+
 .appear.fade-in{
     opacity: 1;
-    transform: translateX(0);;
+    transform: translate(0 , -40%);
+}
+
+.transaction-ammount{
+    font-size: 1.6rem;
+}
+
+.currency-inc{
+    color: $primary-inc-color;
+    text-shadow: 0px 0px 10px $primary-inc-shadow;
+}
+
+.currency-exp{
+    color: $primary-exp-color;
+    text-shadow: 0px 0px 5px $primary-exp-shadow;
 }

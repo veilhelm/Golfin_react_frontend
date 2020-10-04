@@ -1,5 +1,6 @@
 import React from "react"
 import {PieChart, Pie, Sector} from "recharts";
+import "./MainChart.scss"
 
 const data = [{type: 'expenses', value: 100}, {type: 'incomes', value: 400}]
 
