@@ -22,7 +22,18 @@ outline: none !important;
   }
 `
 
-export default function RoundedButton ({children, className, kind, type, size, onClick}) {
+export default function RoundedButton ({
+  children, 
+  className, 
+  kind,
+  type, 
+  size, 
+  onClick,
+  style,
+  onMouseDown,
+  onTouchStart,
+  onTouchEnd,
+  }) {
     const theme = {}
     theme.color = "white"
     if(kind) theme.color = kind === "inc" ? "#0FC721" : "#9F2E2E"
@@ -31,7 +42,17 @@ export default function RoundedButton ({children, className, kind, type, size, o
     
     return (
       <ThemeProvider theme={theme}>
-        <Rounded onClick={onClick} type={type} className={className}>{children}</Rounded>
+        <Rounded 
+        style={style} 
+        onClick={onClick} 
+        type={type} 
+        className={className}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchEnd}
+        onTouchEnd={onTouchEnd}
+        >
+        {children}
+        </Rounded>
       </ThemeProvider>
     )
 }
