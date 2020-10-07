@@ -4,7 +4,6 @@ import "./NavBar.scss"
 
 
 export default function NavBar ({className}) {
-
     const handleSelected = (e) =>{
         console.dir(e.target.id)   
     }
@@ -15,7 +14,7 @@ export default function NavBar ({className}) {
                 <i className="fas fa-award fa-2x"></i>
                 <span>goals</span>
             </a>
-            <a id="nav__link-profile" onClick={e => handleSelected(e)} href="#">
+            <a id="nav__link-profile" onClick={e => handleSelected(e)} href="/login">
                 <i className="far fa-address-card fa-2x"></i>
                 <span>profile</span>
             </a>

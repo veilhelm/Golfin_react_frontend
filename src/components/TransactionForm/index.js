@@ -1,6 +1,6 @@
 import React, {  useRef } from "react"
 import styled from "styled-components"
-import Input from "../Inputs"
+import { LightInput } from "../Inputs"
 import RoundedButton from "../roundedButton"
 import Selector from "../Selector"
 import "./TransactionForm.scss"
@@ -34,14 +34,14 @@ export default function TransactionForm ({kind}) {
     
     return(
         <MainWrapper ref={DOMtranscForm} className="transcForm">
-                <Input 
+                <LightInput 
                     className="transcForm_input-ammount"
                     type="number"
                     id="someId"
                     name="ammount"
                     kind={kind}
                     placeHolder="ammount"
-                ></Input>
+                ></LightInput>
                 <Selector
                     className="transcForm_input-category"
                     id="someId"
@@ -51,22 +51,22 @@ export default function TransactionForm ({kind}) {
                     placeHolder="category"
                 >
                 </Selector>
-                <Input 
+                <LightInput 
                     className="transcForm_input-description"
                     type="text"
                     id="someId"
                     name="description"
                     kind={kind}
                     placeHolder="description"
-                ></Input>
-                <Input 
+                ></LightInput>
+                <LightInput 
                     className="transcForm_input-tags"
                     type="text"
                     id="someId"
                     name="tags"
                     kind={kind}
                     placeHolder="tags"
-                ></Input>
+                ></LightInput>
                 <RoundedButton 
                 className="transcForm_input-button"
                 type="submit"

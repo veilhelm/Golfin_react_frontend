@@ -1,0 +1,19 @@
+.login_card {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: 1fr .5fr 1fr 1fr 1fr;
+    label{
+        color:#48b328;
+        font-size: 1.6rem;
+        height: fit-content;
+        align-self: end;
+    }
+    .login__input{
+        align-self: start;
+    }
+}
+
+.login__btn {
+
+}

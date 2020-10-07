@@ -7,7 +7,7 @@ import "./MainHeroContainer.scss"
 
 const HeroContainer = styled.div`
   width: 100vw;
-  height: 50vh;
+  height: 375px;
   padding-top: 15px;
   background: conic-gradient(from 180deg at 50% 50%, rgba(51, 51, 51, 0.4) 0deg, rgba(12, 203, 244, 0.2) 360deg), linear-gradient(180deg, #333333 0%, rgba(98, 85, 85, 0) 100%), #333333;
   display: grid;
