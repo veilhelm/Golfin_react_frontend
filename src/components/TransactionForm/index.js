@@ -13,7 +13,7 @@ const MainWrapper = styled.div`
     padding-top: 10px;
     height: 20vh;
     z-index:1040;
-    transform: translateY(-40%);
+    transform: translateY(-30%);
     animation: moveInBottom 1s ease-out 1s;
     animation-fill-mode: backwards;
     display: grid;
