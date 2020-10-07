@@ -2,6 +2,7 @@ import React, {  useRef } from "react"
 import styled from "styled-components"
 import Input from "../Inputs"
 import RoundedButton from "../roundedButton"
+import Selector from "../Selector"
 import "./TransactionForm.scss"
 
 const MainWrapper = styled.div`
@@ -41,15 +42,15 @@ export default function TransactionForm ({kind}) {
                     kind={kind}
                     placeHolder="ammount"
                 ></Input>
-                <Input 
+                <Selector
                     className="transcForm_input-category"
-                    type="text"
                     id="someId"
                     name="category"
+                    options={['--category--', 'test2']}
                     kind={kind}
-
                     placeHolder="category"
-                ></Input>
+                >
+                </Selector>
                 <Input 
                     className="transcForm_input-description"
                     type="text"
