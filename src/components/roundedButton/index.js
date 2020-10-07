@@ -33,13 +33,14 @@ export default function RoundedButton ({
   onMouseDown,
   onTouchStart,
   onTouchEnd,
+  ref,
   }) {
     const theme = {}
     theme.color = "white"
     if(kind) theme.color = kind === "inc" ? "#0FC721" : "#9F2E2E"
     theme.size = size || "4rem"
     
-    
+    console.log(ref)
     return (
       <ThemeProvider theme={theme}>
         <Rounded 
@@ -48,8 +49,9 @@ export default function RoundedButton ({
         type={type} 
         className={className}
         onMouseDown={onMouseDown}
-        onTouchStart={onTouchEnd}
+        onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
+        ref={ref}
         >
         {children}
         </Rounded>

@@ -2,11 +2,12 @@ import React from "react"
 import MainHeroSection from "../../components/MainHeroContainer"
 import TransactionCard from "../../components/TransactionCard"
 import TransactionForm from "../../components/TransactionForm"
+import "./MainView.scss"
 
 
 export default function MainView() {
     return(
-        <React.Fragment>
+        <div className="page__mainview">
             <MainHeroSection></MainHeroSection>
             <TransactionForm kind="inc"></TransactionForm>
             <TransactionCard></TransactionCard>
@@ -19,6 +20,6 @@ export default function MainView() {
             <TransactionCard></TransactionCard>
             <TransactionCard></TransactionCard>
             <TransactionCard></TransactionCard>
-        </React.Fragment>
+        </div>
     )
 }

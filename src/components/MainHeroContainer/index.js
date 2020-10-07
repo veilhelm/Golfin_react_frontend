@@ -7,7 +7,7 @@ import "./MainHeroContainer.scss"
 
 const HeroContainer = styled.div`
   width: 100vw;
-  height: 60vh;
+  height: 50vh;
   background: conic-gradient(from 180deg at 50% 50%, rgba(51, 51, 51, 0.4) 0deg, rgba(12, 203, 244, 0.2) 360deg), linear-gradient(180deg, #333333 0%, rgba(98, 85, 85, 0) 100%), #333333;
   display: grid;
   grid-template-areas:  "week month year"
@@ -15,7 +15,7 @@ const HeroContainer = styled.div`
                         ". balance ."
                         "selector1 . selector2"
                         ".... .... ....";
-  grid-template-rows: 1fr 3fr 1.5fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1.5fr 1fr 1fr;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-content: center;

@@ -12,7 +12,6 @@ const Card = styled.div`
     padding-left: 1.5rem;
     padding-right: 0;
     height: 10vh;
-    z-index:1040;
     display: grid;
     grid-template-columns: 1.5fr 3fr 10vh;
     grid-template-rows: repeat(2, 1fr);
@@ -23,17 +22,30 @@ const Card = styled.div`
     justify-items: center;
     margin-bottom: 1vh;
     opacity: 0;
-    transform: translate(50%, -40%);
+    transform: translate(30%, -40%);
     transition: all .5s ease-in;
     color: white;
+    position: relative;
 `
+const DeleteArea = styled.div`
+    background-color: #9F2E2E;
+    width: ${props => props.width};
+    height: 10vh;
+    position: absolute;
+    right:0;
+    z-index: 1;
+    border-radius: 40px;
+`
+
 export default function TransactionCard ({transaction}) {
     const [animationIsOver, setAnimationIsOver] = useState(false)
     const [deleteBtnPosition, setDeleteBtnPosition] = useState(0)
-     
+    const [showDelete, setShowDelete] = useState(false)
+
     const DOMcard = useRef(null)
     const observerObtions = {
-        threshold: 0.3,
+        threshold: 0.7,
+        rootMargin: "0px 0px -80px 0px"
     }
 
     const observer = new IntersectionObserver( (entries) => {
@@ -51,13 +63,16 @@ export default function TransactionCard ({transaction}) {
     const type = "exp"
 
     const handleOnStop= (event, {x}) =>{
-        if(deleteBtnPosition > -390) {
+        if(deleteBtnPosition > -350) {
             setDeleteBtnPosition(0)
+            setShowDelete(false)
         }
     }
 
     const handleDrag=(event,{x}) =>{
         setDeleteBtnPosition(x)
+        if(x < -15) setShowDelete(true)
+        if(deleteBtnPosition<-200) DOMcard.current.classList.add("delete")
     }
 
 
@@ -89,6 +104,13 @@ export default function TransactionCard ({transaction}) {
                 className="delete-btn"
                 >x</RoundedButton>
             </Draggable>
+            {showDelete && 
+                <DeleteArea 
+                width={`${Math.abs(deleteBtnPosition)+60}px`}
+                className="transaction-card-delete-area"
+                >
+                    <span>delete</span>
+                </DeleteArea>}
         </Card>
     )
 }
