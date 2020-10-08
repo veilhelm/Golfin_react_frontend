@@ -11,6 +11,7 @@ const setUpLoginView = () =>{
 const dismountLoginView = () =>{
     document.querySelector("body").classList.remove("login-active")
 }
+
 const snowDrops = () => {
     const drops = []
     for(let i = 0 ; i < 60; i ++){
@@ -29,6 +30,9 @@ export default function Login (){
         <div className="login__container">
             <img className="login__title" src={Logo} alt="golfin-text-logo"></img>
             <LoginCard className="login__card"></LoginCard>
+            <div className="login__section-bottom">
+                <a href="#" className="login__register">create a new account</a>
+            </div>
             <ul>
                 {snowDrops()}
             </ul>

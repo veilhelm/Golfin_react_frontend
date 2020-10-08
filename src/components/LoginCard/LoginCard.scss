@@ -12,4 +12,15 @@
     .login__input{
         align-self: start;
     }
+    div{
+        text-align: center;
+        .login__btn{
+            display: block;
+            margin-bottom: 10px;
+        }
+        a{
+            color: wheat;
+            font-size: 1.2rem;
+        }
+    }
 }

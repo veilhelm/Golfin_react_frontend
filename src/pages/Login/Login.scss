@@ -11,7 +11,7 @@ $SNOWDROPS_LENGTH: 40;
     grid-template-areas:
     ". title ."
     ".  card ."
-    ". newpr ."
+    ". low ."
     ;
     align-items: center;
     justify-items: center;
@@ -116,7 +116,13 @@ $SNOWDROPS_LENGTH: 40;
       grid-area: title;
       align-self: end;
     }
-    
+    .login__section-bottom{
+      grid-area: low;
+      a{
+        font-size: 1.6rem;
+        color: #48b328;
+      }
+    }
 }
 
 .login-active{

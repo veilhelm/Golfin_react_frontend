@@ -29,7 +29,10 @@ export default function LoginCard ({className}) {
             placeHolder="password"
             className="login__input"
             ></MorphicInput>
-            <MorphicButton className="login__btn">login</MorphicButton>
+            <div>
+                <MorphicButton className="login__btn">login</MorphicButton>
+                <a href="#" className="login__forgot">forgot password?</a>
+            </div>
         </MorphCard>
     )    
 

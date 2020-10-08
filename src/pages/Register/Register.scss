@@ -1,0 +1,17 @@
+.register__container{
+    background-color: #333;
+    min-height: 700px;
+    height: 100vh;
+}
+
+
+.Register-active{
+    margin: 0;
+    #root{
+       .MainContainer{
+           .navBar{
+               display: none;
+           }
+       } 
+    }
+}
