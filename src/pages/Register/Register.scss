@@ -2,8 +2,64 @@
     background-color: #333;
     min-height: 700px;
     height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    label{
+        font-size: 1.6rem;
+        color: #48b328;
+        margin-top: 10px;
+    }
 }
 
+.filepond--wrapper{
+    width: 250px;
+    height: 40px;
+    margin-top: 30px;
+    position: relative;
+    &::after{
+        content:"";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 6;
+        top:0;
+        left:0;
+        pointer-events: none;
+        box-shadow: -2px -5px 5px #423f3f, 5px 2px 5px #2a2929;
+        border-radius: 40px;
+    }
+
+}
+
+.filepond--root.filepond--hopper{
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: .3px;
+    
+    .filepond--panel-root{
+        background-color: #333;
+    }
+    .filepond--drop-label{
+        color:#48b328;
+        text-transform: uppercase;
+        label{
+            span{
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.ePsQHV.register__submit-btn{
+    margin-top: 40px;
+    width: fit-content;
+    padding: 0 20px;
+}
 
 .Register-active{
     margin: 0;
