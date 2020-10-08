@@ -14,6 +14,10 @@
     }
     .transcForm_input-button{
         grid-area: b;
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

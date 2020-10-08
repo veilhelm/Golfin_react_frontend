@@ -2,7 +2,8 @@ $SNOWDROPS_LENGTH: 40;
 
 .login__container{
     background-color: #333;
-    min-height: 100vh;
+    min-height: 660px;
+    height: 100vh;
     overflow-x: hidden;
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;

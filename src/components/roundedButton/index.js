@@ -12,12 +12,12 @@ border-radius: 100px;
 border: none;
 transition: all .2s;
 outline: none !important;
-&:hover {
-    transform: translateY(-3px);
+  &:hover {
+    transform: translate(-50%, -3px);
     box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
   }
   &:active {
-    transform: translateY(-1px);
+    transform: translate(-50%, -1px);
     box-shadow: 0 .2rem .5rem rgba(0,0,0,.2);
   }
 `

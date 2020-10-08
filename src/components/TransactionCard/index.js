@@ -11,7 +11,7 @@ const Card = styled.div`
     border-radius: 40px;
     padding-left: 1.5rem;
     padding-right: 0;
-    height: 10vh;
+    height: 65px;
     display: grid;
     grid-template-columns: 1.5fr 3fr 10vh;
     grid-template-rows: repeat(2, 1fr);
@@ -30,7 +30,7 @@ const Card = styled.div`
 const DeleteArea = styled.div`
     background-color: #9F2E2E;
     width: ${props => props.width};
-    height: 10vh;
+    height: 65px;
     position: absolute;
     right:0;
     z-index: 1;
@@ -100,7 +100,7 @@ export default function TransactionCard ({transaction}) {
                 position={{x:deleteBtnPosition, y: 0}}
             >
                 <RoundedButton 
-                size="100%" 
+                size="65px" 
                 className="delete-btn"
                 >x</RoundedButton>
             </Draggable>

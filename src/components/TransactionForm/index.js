@@ -11,8 +11,7 @@ const MainWrapper = styled.div`
     border-radius: 40px;
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 10px;
-    height: 20vh;
+    height: 120px;
     z-index:1040;
     transform: translateY(-30%);
     animation: moveInBottom 1s ease-out 1s;
@@ -23,10 +22,10 @@ const MainWrapper = styled.div`
     grid-template-areas: 
     ". a a a a . c c c c ."
     ". d d d d . t t t t ."
-    ". . . . . b . . . . .";
+    ". . . . . . . . . . .";
     align-items: start;
     justify-items: center;
-   
+    position:relative;
 `
 
 export default function TransactionForm ({kind}) {

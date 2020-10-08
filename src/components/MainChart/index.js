@@ -57,12 +57,12 @@ class MainChart extends React.Component{
         this.state={
             activeIndex: 1,
             width : window.innerWidth,
-            height : window.innerHeight,
+            height : 135,
         }
     }
 
     updateDimensions = () =>{
-      this.setState({width: window.innerWidth, height: window.innerHeight})
+      this.setState({width: window.innerWidth})
     }
 
     componentDidMount() {
@@ -82,7 +82,7 @@ class MainChart extends React.Component{
 
     render () {
     return (
-        <PieChart width={this.state.width} height={this.state.height*.20} className={this.props.className}>
+        <PieChart width={this.state.width} height={this.state.height} className={this.props.className}>
         <Pie 
         activeIndex={this.state.activeIndex}
         activeShape={renderActiveShape}
@@ -90,8 +90,8 @@ class MainChart extends React.Component{
         endAngle={0} 
         data={data}
         cx={(this.state.width/2)-5} 
-        cy={this.state.height*.20} 
-        outerRadius={this.state.height*.25/2} 
+        cy={this.state.height} 
+        outerRadius={this.state.height * .6} 
         fill={this.state.activeIndex === 0 ? "#2E9622" : "#803638"}
         onMouseEnter={this.onPieEnter}
         />
