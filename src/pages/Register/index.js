@@ -21,15 +21,31 @@ const dismountRegisterView = () =>{
     document.querySelector("body").classList.remove("Register-active")
 }
 
+const formSchema = Yup.object().shape({
+    firstName: Yup.string().required("required field"),
+    lastName: Yup.string().required("required field"),
+    email: Yup.string().email().typeError('please provide a vaild email').required("required field"),
+    phoneNumber: Yup.number().typeError('please provide a valid phone number').test('len', 'Must be exactly 10 characters', val => val && val.toString().length === 10 )
+})
+
 export default function Register () {
-    const [formData, setFormData] = useState({firstName:"", lastName:"", email:"", phoneNumber:"", photo: []})
+    const [photo, setPhoto] = useState([])
 
     useEffect(() =>{
         setUpRegisterView()
         return () => dismountRegisterView()
     })
 
+    const snowDrops = () => {
+        const drops = []
+        for(let i = 0 ; i < 60; i ++){
+            drops.push(<li className="snow-drop" key={i}></li>)
+        }
+        return drops.map( drop => drop)
+    }
+
     const handleSubmit = values =>{
+        values.photo = photo
         console.log(values)
     }
 
@@ -43,10 +59,11 @@ export default function Register () {
     return(
         <div className="register__container">
             <Formik
-                initialValues={{...formData}}
+                initialValues={{...photo}}
                 onSubmit={handleSubmit}
-            >
-                {({handleSubmit, values, setValues }) => ( 
+                validationSchema={formSchema}
+            > 
+                {({handleSubmit, values, setValues, errors, touched }) => ( 
                 <Form onSubmit={handleSubmit}>
                     <h5>REGISTER</h5>
                     <label htmlFor="register__first-name">first name</label>
@@ -58,6 +75,10 @@ export default function Register () {
                     onChange={handleChange(setValues, values, "firstName")}
                     value={values.firstName}
                     ></MorphicInput>
+                    {errors.firstName ? (
+                    <p className="register__error">{errors.firstName}</p>
+                    ) : null}
+
                     <label htmlFor="register__last-name">last name</label>
                     <MorphicInput
                     className="register__last-name-input"
@@ -67,6 +88,10 @@ export default function Register () {
                     onChange={handleChange(setValues, values, "lastName")}
                     value={values.lastName}
                     ></MorphicInput>
+                    {errors.lastName ? (
+                    <p className="register__error">{errors.lastName}</p>
+                    ) : null}
+
                     <label htmlFor="register__email">email</label>
                     <MorphicInput
                     className="register__email-input"
@@ -76,6 +101,10 @@ export default function Register () {
                     onChange={handleChange(setValues, values, "email")}
                     value={values.email}
                     ></MorphicInput>
+                    {errors.email ? (
+                    <p className="register__error">{errors.email}</p>
+                    ) : null}
+                    
                     <label htmlFor="register__phone-number">phone number</label>
                     <MorphicInput
                     className="register__phone-number-input"
@@ -85,21 +114,28 @@ export default function Register () {
                     onChange={handleChange(setValues, values, "phoneNumber")}
                     value={values.phoneNumber}
                     ></MorphicInput>
+                    {errors.phoneNumber ? (
+                    <p className="register__error">{errors.phoneNumber}</p>
+                    ) : null}
+
                     <FilePond
-                    files={formData.photo}
-                    onupdatefiles={files => setFormData({...formData, photo: files})}
+                    files={photo}
+                    onupdatefiles={files => setPhoto(files)}
                     allowMultiple={false}
                     allowReplace={true}
                     name="files"
                     labelIdle='drag a cool photo or <span class="filepond--label-action">search</span>'
                     />
-                    {formData.photo.length !==0 && <div style={{height:150}}></div>}
+                    {photo.length !==0 && <div style={{height:150}}></div>}
                     <MorphicButton
                         className="register__submit-btn"
                     >
                         submit
                     </MorphicButton>
                     <a href="/login">already have an account?</a>
+                    <ul>
+                        {snowDrops()}
+                    </ul>
                 </Form>
                 )}
                 </Formik>
