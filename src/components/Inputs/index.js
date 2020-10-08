@@ -55,13 +55,15 @@ const MorphicInputField = styled.input`
     height: 3rem;
 
 `
-export function MorphicInput ({className, id, name, placeHolder, value}) {
+export function MorphicInput ({className, id, name, placeHolder, value, onChange}) {
     return(
         <div className={`morphic-input ${className}`}>
             <MorphicInputField
                 id={id}
                 name={name}
                 placeHolder={placeHolder}
+                value={value}
+                onChange={onChange}
             >
             </MorphicInputField>
         </div>

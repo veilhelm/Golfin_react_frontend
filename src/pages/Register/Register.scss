@@ -1,6 +1,6 @@
 .register__container{
     background-color: #333;
-    min-height: 700px;
+    min-height: 660px;
     height: 100vh;
     text-align: center;
     display: flex;
@@ -12,6 +12,23 @@
         font-size: 1.6rem;
         color: #48b328;
         margin-top: 10px;
+    }
+    h5{
+        color: #48b328;
+        font-size: 2rem;
+        font-family: "lato", sans-serif;
+        font-weight: 300;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+    }
+    a{
+        display: block;
+        color: wheat;
+        margin-top: 30px;
+        font-size: 1.2rem;
+    }
+    .morphic-input{
+        margin-bottom: 10px;
     }
 }
 
@@ -53,6 +70,12 @@
             }
         }
     }
+}
+
+.filepond--list.filepond--list[role=list]{
+    top: 40px;
+    max-height: 150px;
+    border-radius: 100px;
 }
 
 .ePsQHV.register__submit-btn{

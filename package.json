@@ -9,6 +9,7 @@
     "filepond": "^4.21.0",
     "filepond-plugin-image-exif-orientation": "^1.0.9",
     "filepond-plugin-image-preview": "^4.6.4",
+    "formik": "^2.1.7",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-currency-format": "^1.0.0",
@@ -18,7 +19,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "recharts": "^1.8.5",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",

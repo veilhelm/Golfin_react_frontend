@@ -31,7 +31,7 @@ export default function Login (){
             <img className="login__title" src={Logo} alt="golfin-text-logo"></img>
             <LoginCard className="login__card"></LoginCard>
             <div className="login__section-bottom">
-                <a href="#" className="login__register">create a new account</a>
+                <a href="/register" className="login__register">create a new account</a>
             </div>
             <ul>
                 {snowDrops()}
