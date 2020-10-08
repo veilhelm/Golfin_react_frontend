@@ -9,6 +9,8 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import MorphicButton from "../../components/morphicButton"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
+import { useDispatch } from "react-redux"
+import { changeUserFirstName, changeUserIsLogged, changeUserPhoto } from "../../reducers/userDataReducer.actions"
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
@@ -30,6 +32,7 @@ const formSchema = Yup.object().shape({
 
 export default function Register () {
     const [photo, setPhoto] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() =>{
         setUpRegisterView()
@@ -45,8 +48,11 @@ export default function Register () {
     }
 
     const handleSubmit = values =>{
-        values.photo = photo
+        values.photo = photo[0].file
         console.log(values)
+        dispatch(changeUserFirstName(values.firstName))
+        dispatch(changeUserIsLogged(true))
+        dispatch(changeUserPhoto(values.photo))
     }
 
     const handleChange = (setValues, values, field) =>{
