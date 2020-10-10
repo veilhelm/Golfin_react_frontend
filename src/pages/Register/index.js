@@ -11,6 +11,7 @@ import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { changeUserFirstName, changeUserIsLogged, changeUserPhoto } from "../../reducers/userDataReducer.actions"
+import { useHistory } from "react-router-dom"
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
@@ -26,6 +27,7 @@ const dismountRegisterView = () =>{
 const formSchema = Yup.object().shape({
     firstName: Yup.string().required("required field"),
     lastName: Yup.string().required("required field"),
+    password: Yup.string().required("required field"),
     email: Yup.string().email().typeError('please provide a vaild email').required("required field"),
     phoneNumber: Yup.number().typeError('please provide a valid phone number').test('len', 'Must be exactly 10 characters', val => val && val.toString().length === 10 )
 })
@@ -33,6 +35,7 @@ const formSchema = Yup.object().shape({
 export default function Register () {
     const [photo, setPhoto] = useState([])
     const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() =>{
         setUpRegisterView()
@@ -53,6 +56,7 @@ export default function Register () {
         dispatch(changeUserFirstName(values.firstName))
         dispatch(changeUserIsLogged(true))
         dispatch(changeUserPhoto(values.photo))
+        history.push("/")
     }
 
     const handleChange = (setValues, values, field) =>{
@@ -122,6 +126,19 @@ export default function Register () {
                     ></MorphicInput>
                     {errors.phoneNumber ? (
                     <p className="register__error">{errors.phoneNumber}</p>
+                    ) : null}
+
+                    <label htmlFor="register__password">create password</label>
+                    <MorphicInput
+                    className="register__password-input"
+                    id ="register__password"
+                    name ="register__password"
+                    placeHolder="password"
+                    onChange={handleChange(setValues, values, "password")}
+                    value={values.password}
+                    ></MorphicInput>
+                    {errors.password ? (
+                    <p className="register__error">{errors.password}</p>
                     ) : null}
 
                     <FilePond

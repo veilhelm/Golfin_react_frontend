@@ -28,9 +28,7 @@ const userDataReducer = (state = initialState, action) => {
                 userPhoto: action.payload
             }
         default :
-        return {
-            state
-        }
+        return state
     }
 }
 
