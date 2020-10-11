@@ -41,6 +41,7 @@ export default function TransactionCard ({transaction}) {
     const [animationIsOver, setAnimationIsOver] = useState(false)
     const [deleteBtnPosition, setDeleteBtnPosition] = useState(0)
     const [showDelete, setShowDelete] = useState(false)
+    const [deleted, setDeleted] = useState(false)
 
     const DOMcard = useRef(null)
     const observerObtions = {
@@ -59,25 +60,35 @@ export default function TransactionCard ({transaction}) {
         setTimeout(()=> setAnimationIsOver(true), 1500)
         observer.observe(DOMcard.current)
     })
-    // const {ammount , category, description, tags, type} = transaction
+    // const {ammount , category, description, tags, type, _id} = transaction
     const type = "exp"
+    const _id = "ad143lñ143143"
+
+    const handleDelete= (DOMelement) => {
+        const id = DOMelement.getAttribute("data-id")
+        console.log(id)
+    }
 
     const handleOnStop= (event, {x}) =>{
         if(deleteBtnPosition > -350) {
             setDeleteBtnPosition(0)
             setShowDelete(false)
         }
+        if(deleted) handleDelete(DOMcard.current)
     }
 
     const handleDrag=(event,{x}) =>{
         setDeleteBtnPosition(x)
         if(x < -15) setShowDelete(true)
-        if(deleteBtnPosition<-200) DOMcard.current.classList.add("delete")
+        if(deleteBtnPosition<-200){
+            DOMcard.current.classList.add("delete")
+            setDeleted(true)
+        } 
     }
 
 
     return (
-        <Card className="transaction-card" ref={DOMcard}>
+        <Card className="transaction-card" data-id={_id} ref={DOMcard}>
             <CurrencyFormat
             value={"$5000"}
             displayType="text"
