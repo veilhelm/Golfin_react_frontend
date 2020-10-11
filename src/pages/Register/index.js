@@ -151,6 +151,7 @@ export default function Register () {
                     />
                     {photo.length !==0 && <div style={{height:150}}></div>}
                     <MorphicButton
+                        type="submit"
                         className="register__submit-btn"
                     >
                         submit

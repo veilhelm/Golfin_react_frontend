@@ -4,6 +4,8 @@ import { LightInput } from "../Inputs"
 import RoundedButton from "../roundedButton"
 import Selector from "../Selector"
 import "./TransactionForm.scss"
+import { Form, Formik } from "formik"
+import * as Yup from "yup"
 
 const MainWrapper = styled.div`
     background: #333333;
@@ -30,9 +32,28 @@ const MainWrapper = styled.div`
 
 export default function TransactionForm ({kind}) {
     const DOMtranscForm = useRef(null)
+
+    const handleSubmit = (e, values, errors) => {
+        e.preventDefault() 
+        if(Object.keys(errors).length !== 0) return console.log(errors)
+        if(Object.values(values).some(value => value === "")) return console.log(values)
+        console.log(values)
+    }
+
+    const formSchema = Yup.object().shape({
+        ammount: Yup.number().required("required field"),
+        category: Yup.string().required("required field"),
+        description: Yup.string().required("required field")
+    })
     
     return(
-        <MainWrapper ref={DOMtranscForm} className="transcForm">
+        <Formik
+        initialValues={{ammount:"", category:"--category--", description:"", tags:"-"}}
+        validationSchema={formSchema}
+        > 
+        {({values, setValues, errors, handleChange }) => ( 
+                <Form onSubmit={(e) => handleSubmit(e, values, errors)}>
+            <MainWrapper ref={DOMtranscForm} className="transcForm">
                 <LightInput 
                     className="transcForm_input-ammount"
                     type="number"
@@ -40,7 +61,9 @@ export default function TransactionForm ({kind}) {
                     name="ammount"
                     kind={kind}
                     placeHolder="ammount"
-                ></LightInput>
+                    onChange={handleChange}
+                    value={values.ammount}
+                    ></LightInput>
                 <Selector
                     className="transcForm_input-category"
                     id="someId"
@@ -48,7 +71,9 @@ export default function TransactionForm ({kind}) {
                     options={['--category--', 'test2']}
                     kind={kind}
                     placeHolder="category"
-                >
+                    onChange={handleChange}
+                    value={values.category}
+                    >
                 </Selector>
                 <LightInput 
                     className="transcForm_input-description"
@@ -57,7 +82,9 @@ export default function TransactionForm ({kind}) {
                     name="description"
                     kind={kind}
                     placeHolder="description"
-                ></LightInput>
+                    onChange={handleChange}
+                    value={values.description}
+                    ></LightInput>
                 <LightInput 
                     className="transcForm_input-tags"
                     type="text"
@@ -71,8 +98,10 @@ export default function TransactionForm ({kind}) {
                 type="submit"
                 kind={kind}
                 size="4rem"
-                onClick={() => console.log("im working")}
                 >+</RoundedButton>
         </MainWrapper>
+            </Form>
+        )}
+        </Formik>
     )
 }

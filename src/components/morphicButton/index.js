@@ -28,8 +28,8 @@ const SelectorButton = styled.button`
     }
 `
 
-export default function MorphicButton({children, className, onClick}){
+export default function MorphicButton({children, className, onClick, type}){
     return(
-        <SelectorButton className={className} onClick={(e)=> onClick}>{children}</SelectorButton>
+        <SelectorButton type={type} className={className} onClick={(e)=> onClick}>{children}</SelectorButton>
     )
 }
