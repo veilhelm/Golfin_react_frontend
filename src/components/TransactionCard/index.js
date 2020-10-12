@@ -5,6 +5,7 @@ import CurrencyFormat from "react-currency-format"
 import RoundedButton from "../roundedButton"
 import Draggable from "react-draggable"
 import { categoryIcons } from "../../utils/transactionCategories"
+import Tag from "../tag"
 
 const Card = styled.div`
     background: #333333;
@@ -35,6 +36,7 @@ export default function TransactionCard ({transaction}) {
     const [deleteBtnPosition, setDeleteBtnPosition] = useState(0)
     const [showDelete, setShowDelete] = useState(false)
     const [deleted, setDeleted] = useState(false)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     const DOMcard = useRef(null)
     const observerObtions = {
@@ -53,10 +55,21 @@ export default function TransactionCard ({transaction}) {
         setTimeout(()=> setAnimationIsOver(true), 1500)
         observer.observe(DOMcard.current)
     })
+
+    const updateDimensions = () =>{
+        setWindowWidth(window.innerWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", updateDimensions )
+    })
+
+
     // const {ammount , category, description, tags, type, _id} = transaction
     const type = "inc"
     const _id = "ad143lñ143143"
     const category = "salary"
+    const tags = ["house","family","business", "some long tag"]
 
     const handleDelete= (DOMelement) => {
         const id = DOMelement.getAttribute("data-id")
@@ -80,6 +93,15 @@ export default function TransactionCard ({transaction}) {
         } 
     }
 
+    const renderTags = (tags) => {
+        if(tags.length === 0 ) return null
+        let limit
+        if(windowWidth <= 1024) limit = 6
+        if(windowWidth <= 768 ) limit = 4
+        if(windowWidth <= 600 ) limit = 3
+        if(windowWidth <= 430 ) limit = 2
+        return tags.slice(0, limit).map( tag => <Tag>{tag}</Tag>)
+    }
 
     return (
         <Card className="transaction-card" data-id={_id} ref={DOMcard}>
@@ -93,8 +115,7 @@ export default function TransactionCard ({transaction}) {
             <h3>{category}</h3>
             <p>description testing how long can this string be</p>
             <div className="transaction-card-tags">
-                <span className="">tags space</span>
-                {/* {tags && tags.forEach( tag => <span>{tag}</span>)} */}
+                {renderTags(tags)}
             </div>
             {categoryIcons[category]}
             <Draggable

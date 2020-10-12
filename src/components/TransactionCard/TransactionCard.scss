@@ -63,6 +63,11 @@
 
     .transaction-card-tags{
         grid-area: tags;
+        display: flex;
+        flex-wrap: wrap;
+        align-self: start;
+        font-size: .8rem;
+        padding: 0 20px;
     }
 
     .transaction-icon{
@@ -105,6 +110,8 @@
         }
         .transaction-card-tags{
             justify-self: start;
+            align-self: center;
+            font-size: 1rem;
         }
     }
 }

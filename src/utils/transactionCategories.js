@@ -7,26 +7,26 @@ export const expCategories = [
     "food",
     "utilities",
     "clothing",
-    "medical_healthcare",
+    "medical healthcare",
     "insurance",
-    "household_items",
+    "household items",
     "personal",
     "debts",
-    "financial_planning",
+    "financial planning",
     "investing",
     "education",
-    "gifts_donations",
+    "gifts donations",
     "entertainment"
 ]
 
 export const incCategories = [
     "--select--",
     "salary",
-    "wages_bonuses",
+    "wages bonuses",
     "dividends",
-    "investment_returns",
-    "rental_receipts",
-    "payed_loans_lendings"
+    "investment returns",
+    "rental receipts",
+    "payed loans lendings"
 ]
 
 export const categoryIcons = {

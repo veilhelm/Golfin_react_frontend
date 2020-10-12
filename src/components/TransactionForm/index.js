@@ -39,6 +39,7 @@ export default function TransactionForm ({kind}) {
         if(Object.keys(errors).length !== 0) return console.log(errors)
         if(Object.values(values).some(value => value === "")) return console.log(values)
         values.tags = values.tags.split(",")
+        values.category = values.category.replace(" ", "_")
         console.log(values)
     }
 
