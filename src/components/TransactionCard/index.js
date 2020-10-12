@@ -4,6 +4,7 @@ import "./TransactionCard.scss"
 import CurrencyFormat from "react-currency-format"
 import RoundedButton from "../roundedButton"
 import Draggable from "react-draggable"
+import { categoryIcons } from "../../utils/transactionCategories"
 
 const Card = styled.div`
     background: #333333;
@@ -13,14 +14,7 @@ const Card = styled.div`
     padding-right: 0;
     height: 65px;
     display: grid;
-    grid-template-columns: 1.5fr 3fr 10vh;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-areas:
-    "ammount category delete"
-    "tags  description delete";
-    align-items: center;
-    justify-items: center;
-    margin-bottom: 1vh;
+    margin-bottom: 10px;
     opacity: 0;
     transform: translate(30%, -40%);
     transition: all .5s ease-in;
@@ -36,7 +30,6 @@ const DeleteArea = styled.div`
     z-index: 1;
     border-radius: 40px;
 `
-
 export default function TransactionCard ({transaction}) {
     const [animationIsOver, setAnimationIsOver] = useState(false)
     const [deleteBtnPosition, setDeleteBtnPosition] = useState(0)
@@ -61,8 +54,9 @@ export default function TransactionCard ({transaction}) {
         observer.observe(DOMcard.current)
     })
     // const {ammount , category, description, tags, type, _id} = transaction
-    const type = "exp"
+    const type = "inc"
     const _id = "ad143lñ143143"
+    const category = "salary"
 
     const handleDelete= (DOMelement) => {
         const id = DOMelement.getAttribute("data-id")
@@ -96,12 +90,13 @@ export default function TransactionCard ({transaction}) {
             prefix={"$"}
             renderText={ value => <span className={`transaction-ammount currency-${type}`}>{value}</span>}
             ></CurrencyFormat>
-            <h3>category</h3>
+            <h3>{category}</h3>
             <p>description testing how long can this string be</p>
-            <div>
+            <div className="transaction-card-tags">
                 <span className="">tags space</span>
                 {/* {tags && tags.forEach( tag => <span>{tag}</span>)} */}
             </div>
+            {categoryIcons[category]}
             <Draggable
                 axis="x"
                 bounds=".transaction-card"

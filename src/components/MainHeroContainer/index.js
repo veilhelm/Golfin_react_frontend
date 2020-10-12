@@ -4,6 +4,8 @@ import MainChart from "../MainChart"
 import NormalButton from "../NormalButton"
 import { SelectorExpenses, SelectorIncome } from "../TypeInputSelectors"
 import "./MainHeroContainer.scss"
+import { useDispatch, useSelector } from "react-redux"
+import { changeTypeInputSelected } from "../../reducers/transactionInputReducer.actions"
 
 const HeroContainer = styled.div`
   width: 100vw;
@@ -25,6 +27,12 @@ const HeroContainer = styled.div`
 `
 
 export default function MainHeroSection (){
+    const selectedTypeInput = useSelector(state => state.transactionInputReducer.typeInputSelected)
+    const dispatch = useDispatch()
+    const setInputSelected = (kind) =>{
+         dispatch(changeTypeInputSelected(kind))
+    }
+
     return(
         <HeroContainer className="heroContainer">
             <NormalButton className="N_btn-week">week</NormalButton>
@@ -36,8 +44,8 @@ export default function MainHeroSection (){
                 <div className="spacing"></div>
                 <span className="hero_title-balance">$4000</span>
             </h2>
-            <SelectorIncome active="exp" className="hero_selector-inc">add an inc</SelectorIncome>
-            <SelectorExpenses active="exp" className="hero_selector-exp">add an exp</SelectorExpenses>
+            <SelectorIncome onClick={(e) =>setInputSelected("inc")} active={selectedTypeInput} className="hero_selector-inc">add an inc</SelectorIncome>
+            <SelectorExpenses onClick={(e) =>setInputSelected("exp")} active={selectedTypeInput} className="hero_selector-exp">add an exp</SelectorExpenses>
         </HeroContainer>
     )
 }

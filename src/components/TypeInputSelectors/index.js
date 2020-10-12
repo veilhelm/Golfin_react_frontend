@@ -51,7 +51,7 @@ export function SelectorIncome({children, active, className, onClick}) {
 
     return (
         <ThemeProvider theme={theme}>
-            <IncomeSelector onClick={(e) => onClick} className={className}>{children}</IncomeSelector>
+            <IncomeSelector onClick={(e) => onClick(e)} className={className}>{children}</IncomeSelector>
         </ThemeProvider>
     )
 }
@@ -73,7 +73,7 @@ export function SelectorExpenses({children, active, className, onClick}) {
 
     return (
         <ThemeProvider theme={theme}>
-            <ExpenseSelector onClick={(e) => onClick} className={className}>{children}</ExpenseSelector>
+            <ExpenseSelector onClick={(e) => onClick(e)} className={className}>{children}</ExpenseSelector>
         </ThemeProvider>
     )
 }

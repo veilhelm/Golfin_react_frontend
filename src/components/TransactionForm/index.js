@@ -6,6 +6,7 @@ import Selector from "../Selector"
 import "./TransactionForm.scss"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
+import { expCategories, incCategories } from "../../utils/transactionCategories"
 
 const MainWrapper = styled.div`
     background: #333333;
@@ -29,26 +30,35 @@ const MainWrapper = styled.div`
     justify-items: center;
     position:relative;
 `
-
 export default function TransactionForm ({kind}) {
     const DOMtranscForm = useRef(null)
+    const DOMtagsInputToolTip = useRef(null)
 
     const handleSubmit = (e, values, errors) => {
         e.preventDefault() 
         if(Object.keys(errors).length !== 0) return console.log(errors)
         if(Object.values(values).some(value => value === "")) return console.log(values)
+        values.tags = values.tags.split(",")
         console.log(values)
+    }
+
+    const tooltipAppear = () => {
+        DOMtagsInputToolTip.current.classList.add("appear")
+    }
+    const tooltipDisappear = () => {
+        DOMtagsInputToolTip.current.classList.remove("appear")
     }
 
     const formSchema = Yup.object().shape({
         ammount: Yup.number().required("required field"),
         category: Yup.string().required("required field"),
-        description: Yup.string().required("required field")
+        description: Yup.string().required("required field"),
+        tags: Yup.string().required("required field"),
     })
     
     return(
         <Formik
-        initialValues={{ammount:"", category:"--category--", description:"", tags:"-"}}
+        initialValues={{ammount:"", category:"--category--", description:"", tags:""}}
         validationSchema={formSchema}
         > 
         {({values, setValues, errors, handleChange }) => ( 
@@ -68,7 +78,7 @@ export default function TransactionForm ({kind}) {
                     className="transcForm_input-category"
                     id="someId"
                     name="category"
-                    options={['--category--', 'test2']}
+                    options={kind === "inc" ? incCategories : expCategories}
                     kind={kind}
                     placeHolder="category"
                     onChange={handleChange}
@@ -85,14 +95,21 @@ export default function TransactionForm ({kind}) {
                     onChange={handleChange}
                     value={values.description}
                     ></LightInput>
-                <LightInput 
-                    className="transcForm_input-tags"
-                    type="text"
-                    id="someId"
-                    name="tags"
-                    kind={kind}
-                    placeHolder="tags"
-                ></LightInput>
+                    <div className="transcForm-tags">
+                    <LightInput 
+                        className="transcForm_input-tags"
+                        type="text"
+                        id="someId"
+                        name="tags"
+                        kind={kind}
+                        placeHolder="tags"
+                        onFocus={tooltipAppear}
+                        onBlur={tooltipDisappear}
+                        onChange={handleChange}
+                        value={values.tags}
+                    ></LightInput>
+                    <span ref={DOMtagsInputToolTip} className="tooltip-input-tags">write your custom tags separated by a comma like so: "family, business, tips"</span>
+                    </div>
                 <RoundedButton 
                 className="transcForm_input-button"
                 type="submit"

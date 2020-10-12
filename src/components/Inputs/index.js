@@ -22,7 +22,7 @@ const InputField =styled.input`
     -webkit-appearance: none; 
     }
 `
-export function LightInput ({className, type, id, name, kind, placeHolder, value, onChange}) {
+export function LightInput ({className, type, id, name, kind, placeHolder, value, onChange, onFocus, onBlur}) {
     return(
             <InputField 
             className={className}
@@ -33,6 +33,8 @@ export function LightInput ({className, type, id, name, kind, placeHolder, value
             placeholder={placeHolder}
             value={value}
             onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
             ></InputField>
     )
 }

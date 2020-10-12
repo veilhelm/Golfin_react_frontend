@@ -9,8 +9,33 @@
     .transcForm_input-description{
         grid-area: d;
     }
-    .transcForm_input-tags{
+    .transcForm-tags{
+        transition: all 1s ease;
+        position: relative;
         grid-area: t;
+        width: 100%;
+        .transcForm_input-tags{
+            width: 100%;
+        }
+        .tooltip-input-tags{
+            position: absolute;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+            bottom: 80%;
+            left: 50%;
+            width: fit-content;
+            height: fit-content;
+            padding: 5px;
+            padding-bottom: 30px;
+            background-color: rgb(46, 41, 41);
+            color: lavender;
+            transform: translate(-70%);
+            display: none;
+            opacity: 0;
+        }
+        .tooltip-input-tags.appear{
+            opacity: 0.8;
+            display: inline;
+        }
     }
     .transcForm_input-button{
         grid-area: b;
