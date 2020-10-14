@@ -12,9 +12,13 @@ import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { changeUserFirstName, changeUserIsLogged, changeUserPhoto } from "../../reducers/userDataReducer.actions"
 import { useHistory } from "react-router-dom"
+import { postRegisterUser } from "./Register.http"
+import Swal from "sweetalert2"
+
+
+  
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
-
 
 const setUpRegisterView = () =>{
     document.querySelector("body").classList.add("Register-active")
@@ -50,13 +54,34 @@ export default function Register () {
         return drops.map( drop => drop)
     }
 
-    const handleSubmit = values =>{
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+          history.push("/")
+        }
+      })
+
+    const handleSubmit = async values =>{
         values.photo = photo[0].file
-        console.log(values)
-        dispatch(changeUserFirstName(values.firstName))
-        dispatch(changeUserIsLogged(true))
-        dispatch(changeUserPhoto(values.photo))
-        history.push("/")
+        try {
+            const user = await postRegisterUser(values)
+            dispatch(changeUserFirstName(values.firstName))
+            dispatch(changeUserIsLogged(true))
+            dispatch(changeUserPhoto(values.photo))
+            localStorage.setItem("token",user.data.tokens[0])
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+              })
+        } catch (error) {
+            Swal.fire('opps!', 'wec coldn´t connect to the server, please make sure you are connected to the internet and try again', 'error')    
+        }
     }
 
     const handleChange = (setValues, values, field) =>{
@@ -152,7 +177,7 @@ export default function Register () {
                     {photo.length !==0 && <div style={{height:150}}></div>}
                     <MorphicButton
                         type="submit"
-                        className="register__submit-btn"
+                        id="register__submit-btn"
                     >
                         submit
                     </MorphicButton>

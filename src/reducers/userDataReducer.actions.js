@@ -20,3 +20,10 @@ export const changeUserPhoto = (payload) => {
         payload
     }
 }
+
+export const changeUserId = (payload) => {
+    return {
+        type: ACTIONS.CHANGE_USER_ID,
+        payload
+    }
+}

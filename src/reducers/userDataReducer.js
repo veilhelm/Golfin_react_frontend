@@ -2,12 +2,14 @@ let initialState = {
     isLogged: false,
     firstName: "",
     userPhoto: "",
+    userId: "",
 }
 
 const ACTIONS = {
     CHANGE_IS_LOGGED: "CHANGE_IS_LOGGED",
     CHANGE_FIRST_NAME: "CHANGE_FIRST_NAME",
-    CHANGE_USER_PHOTO: "CHANGE_USER_PHOTO"
+    CHANGE_USER_PHOTO: "CHANGE_USER_PHOTO",
+    CHANGE_USER_ID: "CHANGE_USER_ID",
 }
 
 const userDataReducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const userDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userPhoto: action.payload
+            }
+        case ACTIONS.CHANGE_USER_ID:
+            return {
+                ...state,
+                userId: action.payload
             }
         default :
         return state

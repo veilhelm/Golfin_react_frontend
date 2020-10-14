@@ -7,6 +7,9 @@ import "./TransactionForm.scss"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { expCategories, incCategories } from "../../utils/transactionCategories"
+import { postTransaction } from "./TransactionForm.http"
+import { useDispatch } from "react-redux"
+import { changeTransactionsToRender } from "../../reducers/transactionToRenderReducer.actions"
 
 const MainWrapper = styled.div`
     background: #333333;
@@ -33,14 +36,21 @@ const MainWrapper = styled.div`
 export default function TransactionForm ({kind}) {
     const DOMtranscForm = useRef(null)
     const DOMtagsInputToolTip = useRef(null)
+    const dispatch = useDispatch()
 
-    const handleSubmit = (e, values, errors) => {
+    const handleSubmit = async (e, values, errors, setValues) => {
         e.preventDefault() 
-        if(Object.keys(errors).length !== 0) return console.log(errors)
-        if(Object.values(values).some(value => value === "")) return console.log(values)
+        if(Object.keys(errors).length !== 0) return 
+        if(Object.values(values).some(value => value === "")) return 
         values.tags = values.tags.split(",")
         values.category = values.category.replace(" ", "_")
-        console.log(values)
+        try {
+            const transaction = await postTransaction({...values, type: kind})
+            setValues({ammount: "", description: "", tags:"", category: "--select--" })
+            dispatch(changeTransactionsToRender([transaction]))
+        } catch (error) {
+            console.dir(error)
+        }
     }
 
     const tooltipAppear = () => {
@@ -63,7 +73,7 @@ export default function TransactionForm ({kind}) {
         validationSchema={formSchema}
         > 
         {({values, setValues, errors, handleChange }) => ( 
-                <Form onSubmit={(e) => handleSubmit(e, values, errors)}>
+                <Form onSubmit={(e) => handleSubmit(e, values, errors, setValues)}>
             <MainWrapper ref={DOMtranscForm} className="transcForm">
                 <LightInput 
                     className="transcForm_input-ammount"

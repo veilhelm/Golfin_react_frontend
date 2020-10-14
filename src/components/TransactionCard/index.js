@@ -6,6 +6,9 @@ import RoundedButton from "../roundedButton"
 import Draggable from "react-draggable"
 import { categoryIcons } from "../../utils/transactionCategories"
 import Tag from "../tag"
+import { deleteTransaction } from "./TransactionCard.http"
+import { useDispatch } from "react-redux"
+import { deleteTransactionToRender } from "../../reducers/transactionToRenderReducer.actions"
 
 const Card = styled.div`
     background: #333333;
@@ -37,6 +40,7 @@ export default function TransactionCard ({transaction}) {
     const [showDelete, setShowDelete] = useState(false)
     const [deleted, setDeleted] = useState(false)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const dispatch = useDispatch()
 
     const DOMcard = useRef(null)
     const observerObtions = {
@@ -64,16 +68,14 @@ export default function TransactionCard ({transaction}) {
         window.addEventListener("resize", updateDimensions )
     })
 
-
-    // const {ammount , category, description, tags, type, _id} = transaction
-    const type = "inc"
-    const _id = "ad143lñ143143"
-    const category = "salary"
-    const tags = ["house","family","business", "some long tag"]
-
-    const handleDelete= (DOMelement) => {
+    const handleDelete= async (DOMelement) => {
         const id = DOMelement.getAttribute("data-id")
-        console.log(id)
+        try {
+            await deleteTransaction(id)
+            dispatch(deleteTransactionToRender(id))
+        } catch (error) {
+            
+        }
     }
 
     const handleOnStop= (event, {x}) =>{
@@ -93,7 +95,7 @@ export default function TransactionCard ({transaction}) {
         } 
     }
 
-    const renderTags = (tags) => {
+    const renderTags = (tags = []) => {
         if(tags.length === 0 ) return null
         let limit
         if(windowWidth <= 1024) limit = 6
@@ -104,20 +106,20 @@ export default function TransactionCard ({transaction}) {
     }
 
     return (
-        <Card className="transaction-card" data-id={_id} ref={DOMcard}>
+        <Card className="transaction-card" data-id={transaction._id} ref={DOMcard}>
             <CurrencyFormat
-            value={"$5000"}
+            value={transaction.ammount}
             displayType="text"
             thousandSeparator={true}
             prefix={"$"}
-            renderText={ value => <span className={`transaction-ammount currency-${type}`}>{value}</span>}
+            renderText={ value => <span className={`transaction-ammount currency-${transaction.type}`}>{value}</span>}
             ></CurrencyFormat>
-            <h3>{category}</h3>
-            <p>description testing how long can this string be</p>
+            <h3>{transaction.category}</h3>
+            <p>{transaction.description}</p>
             <div className="transaction-card-tags">
-                {renderTags(tags)}
+                {renderTags(transaction.tags)}
             </div>
-            {categoryIcons[category]}
+            {categoryIcons[transaction.category]}
             <Draggable
                 axis="x"
                 bounds=".transaction-card"
