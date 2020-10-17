@@ -10,7 +10,7 @@ export default function NavBar ({className}) {
 
     return(
         <nav className={`navBar ${className || ""}`}>
-            <a id="nav__link-goals" onClick={e => handleSelected(e)} href="#">
+            <a id="nav__link-goals" onClick={e => handleSelected(e)} href="/goals">
                 <i className="fas fa-award fa-2x"></i>
                 <span>goals</span>
             </a>

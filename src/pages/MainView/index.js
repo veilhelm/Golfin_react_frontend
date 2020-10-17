@@ -10,29 +10,27 @@ import { changeTransactionsToRender } from "../../reducers/transactionToRenderRe
 
 export default function MainView() {
     const transactions = useSelector(state => state.transactionToRenderReducer.transactions)
+    const selectedTypeInput = useSelector(state => state.transactionInputReducer.typeInputSelected)
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        async function setTransactions(){
-            try {
-                const transactions = await getTransactions()
-                console.log(transactions)
-                dispatch(changeTransactionsToRender(transactions))
-            } catch (error) {
-                console.log({errorFetch: error})
-            }
+    async function setTransactions(){
+        try {
+            const transactions = await getTransactions()
+            dispatch(changeTransactionsToRender(transactions))
+        } catch (error) {
+            console.log({errorFetch: error})
         }
+    }
+
+    useEffect(()=>{
         setTransactions()
     },[])
 
     const renderTransactions = () =>{
-        console.log("i got executed")
     return transactions.length === 0 ? null : transactions.map( transaction => {
-        console.log({testingTransc: transaction})
     return <TransactionCard key={transaction._id} transaction={transaction}></TransactionCard>
     })
     }
-    const selectedTypeInput = useSelector(state => state.transactionInputReducer.typeInputSelected)
     return(
         <div className="page__mainview">
             <MainHeroSection></MainHeroSection>

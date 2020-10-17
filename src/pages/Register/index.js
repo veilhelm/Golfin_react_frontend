@@ -68,7 +68,8 @@ export default function Register () {
       })
 
     const handleSubmit = async values =>{
-        values.photo = photo[0].file
+        // values.photo = photo[0].file
+        values.photo = "someUserPhoto"
         try {
             const user = await postRegisterUser(values)
             dispatch(changeUserFirstName(values.firstName))
@@ -80,7 +81,8 @@ export default function Register () {
                 title: 'Signed in successfully'
               })
         } catch (error) {
-            Swal.fire('opps!', 'wec coldn´t connect to the server, please make sure you are connected to the internet and try again', 'error')    
+            if(error.response.status === 400 ) Swal.fire('opps!', `${error.response.data.message}`, 'error')
+            else Swal.fire('opps!', 'we couldn´t connect to the server, please make sure you are connected to the internet and try again', 'error')    
         }
     }
 

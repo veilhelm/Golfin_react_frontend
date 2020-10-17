@@ -8,7 +8,7 @@ import { categoryIcons } from "../../utils/transactionCategories"
 import Tag from "../tag"
 import { deleteTransaction } from "./TransactionCard.http"
 import { useDispatch } from "react-redux"
-import { deleteTransactionToRender } from "../../reducers/transactionToRenderReducer.actions"
+import { deleteTransactionToRender, updateTotalsToRender } from "../../reducers/transactionToRenderReducer.actions"
 
 const Card = styled.div`
     background: #333333;
@@ -72,6 +72,7 @@ export default function TransactionCard ({transaction}) {
         const id = DOMelement.getAttribute("data-id")
         try {
             await deleteTransaction(id)
+            dispatch(updateTotalsToRender(id,'transactionDeleted'))
             dispatch(deleteTransactionToRender(id))
         } catch (error) {
             

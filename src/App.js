@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import MainView from './pages/MainView';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Goals from './pages/Objectives';
 
 
 function PrivateRoute (props) {
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/' component={MainView}></Route>
           <Route exact path='/login' component={Login}></Route>
           <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/goals" component={Goals}></Route>
         </Switch> 
       </Router>
         <NavBar></NavBar>

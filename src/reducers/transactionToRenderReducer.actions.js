@@ -13,3 +13,24 @@ export const deleteTransactionToRender = (payload) => {
         payload
     }
 }
+
+export const setYearlyTotalsToRender = (payload) => {
+    return {
+        type: ACTIONS.SET_YEARLY_TOTALS_TO_RENDER,
+        payload
+    }
+}
+
+export const setMonthlyTotalsToRender = (payload) => {
+    return {
+        type: ACTIONS.SET_MONTHLY_TOTALS_TO_RENDER,
+        payload
+    }
+}
+
+export const updateTotalsToRender = (data, actionCase) => {
+    return {
+        type: ACTIONS.UPDATE_TOTALS_TO_RENDER,
+        payload: {data, actionCase}
+    }
+}

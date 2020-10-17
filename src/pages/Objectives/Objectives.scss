@@ -1,0 +1,167 @@
+.objectives__container{
+    min-height: 580px;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(35,35,37,0.8), rgba(60,181,185, 0.5), rgba(74,65,65,1));
+    padding-top: 40px;
+    color:white;
+    font-family: "Lato";
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: min-content 0.8fr;
+    p{
+        opacity: 0.7;
+    }
+}
+
+.objectives__title{
+    justify-self: stretch;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: white;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    line-height: 29px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+.objectives__content{
+    margin: 0 47.5px;
+    max-width: 500px;
+}
+
+.hidden{
+    display:none;
+}
+
+.objectives__add-objective{
+    width: 50px;
+    height: 50px;
+    border: dashed 1,3333334px #979797;
+    background: linear-gradient(140deg, #424751, #1C1E22);
+    box-shadow: 4px 4px 10px #394648;
+    border-radius: 15px;
+    box-shadow: -4px -4px 10px rgba(121,201, 204, 0.8);
+    margin-top: 60px;
+    font-size: 1.6rem;
+    color: rgba(73,213,28,0.6);
+    outline: none;
+}
+
+.fade-in-start{
+    animation: moveInFromRight 0.5s;
+}
+
+.fade-out{
+    animation: moveOutToleft 0.5s;
+}
+
+.objectives__input_select{
+    border: none;
+    width: 100%;
+    border-bottom: 3px solid rgba(94, 175, 139, 1);
+    background: rgba(85,173,110,1);
+    border-radius: 10px;
+    padding-left: 10px;
+    font-family: "Lato", sans-serif;
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.7;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    appearance: none;
+    color: rgba(255, 255, 255, 0.6);
+    outline: none;
+    appearance: none;
+    &[type=number]::-webkit-inner-spin-button,
+    &[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    }
+}
+
+.objectives__next_btn{
+    border-radius: 15px;
+    border: dashed 1,3333334px #979797;
+    background: linear-gradient(140deg, #424751, #1C1E22);
+    box-shadow: 4px 4px 12px #394648, -4px -4px 12px #79c9cc;
+    color:white;
+    font-family: "Lato";
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: center;
+    width: 40%;
+    margin: 0 10px;
+    margin-top: 30px;
+    outline: none;
+    &:active{
+        background: linear-gradient(140deg, #34373f, #111214)
+    }
+}
+
+
+.objectives__form-input-amount{
+    border:none;
+    background: transparent;
+    border-bottom: 3px solid rgba(85,173,110,1);
+    outline: none;
+    appearance: none;
+    margin: 30px 0;
+    width: 70%;
+    text-align: center;
+    color: white;
+    opacity: 0.7;
+    font-size: 1.7rem;
+    &[type=number]::-webkit-inner-spin-button,
+    &[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    }
+}
+
+@keyframes moveOutToleft {
+    0% {
+        opacity: 1;
+    }
+  
+    100% {
+        opacity: 0;
+        transform: translateX(-10rem); 
+    }
+}
+  
+@keyframes moveInFromRight {
+    0%{
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); 
+        }
+}
+@keyframes moveOutToRight {
+    0%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(10rem); 
+        }
+}
+
+@keyframes moveInFromLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); 
+        }
+}

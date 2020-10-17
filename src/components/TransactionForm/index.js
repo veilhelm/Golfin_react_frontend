@@ -9,7 +9,7 @@ import * as Yup from "yup"
 import { expCategories, incCategories } from "../../utils/transactionCategories"
 import { postTransaction } from "./TransactionForm.http"
 import { useDispatch } from "react-redux"
-import { changeTransactionsToRender } from "../../reducers/transactionToRenderReducer.actions"
+import { changeTransactionsToRender, updateTotalsToRender } from "../../reducers/transactionToRenderReducer.actions"
 
 const MainWrapper = styled.div`
     background: #333333;
@@ -48,6 +48,7 @@ export default function TransactionForm ({kind}) {
             const transaction = await postTransaction({...values, type: kind})
             setValues({ammount: "", description: "", tags:"", category: "--select--" })
             dispatch(changeTransactionsToRender([transaction]))
+            dispatch(updateTotalsToRender(transaction, 'transactionAdded'))
         } catch (error) {
             console.dir(error)
         }

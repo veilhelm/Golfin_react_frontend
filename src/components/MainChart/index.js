@@ -2,7 +2,6 @@ import React from "react"
 import {PieChart, Pie, Sector} from "recharts";
 import "./MainChart.scss"
 
-const data = [{type: 'expenses', value: 100}, {type: 'incomes', value: 400}]
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -61,9 +60,6 @@ class MainChart extends React.Component{
         }
     }
 
-    updateDimensions = () =>{
-      this.setState({width: window.innerWidth})
-    }
 
     componentDidMount() {
       window.addEventListener("resize", this.updateDimensions);
@@ -88,7 +84,7 @@ class MainChart extends React.Component{
         activeShape={renderActiveShape}
         startAngle={180} 
         endAngle={0} 
-        data={data}
+        data={this.props.data}
         cx={(this.state.width/2)-5} 
         cy={this.state.height} 
         outerRadius={this.state.height * .6} 
