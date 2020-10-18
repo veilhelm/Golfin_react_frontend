@@ -161,6 +161,7 @@ export default function Register () {
                     id ="register__password"
                     name ="register__password"
                     placeHolder="password"
+                    type="password"
                     onChange={handleChange(setValues, values, "password")}
                     value={values.password}
                     ></MorphicInput>
