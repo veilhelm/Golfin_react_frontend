@@ -5,6 +5,9 @@ import MainView from './pages/MainView';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Goals from './pages/Objectives';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import "./components/datePicker/DatePicker.scss"
 
 
 function PrivateRoute (props) {
@@ -21,7 +24,7 @@ function App() {
     <div className="MainContainer">
       <Router>
         <Switch>
-          <Route exact path='/' component={MainView}></Route>
+          <Route exact path='/balance' component={MainView}></Route>
           <Route exact path='/login' component={Login}></Route>
           <Route exact path="/register" component={Register}></Route>
           <Route exact path="/goals" component={Goals}></Route>

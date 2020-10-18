@@ -18,11 +18,11 @@ export default function NavBar ({className}) {
                 <i className="far fa-address-card fa-2x"></i>
                 <span>profile</span>
             </a>
-            <a id="nav__link-dashboard"onClick={e => handleSelected(e)} href="#">
+            <a id="nav__link-dashboard"onClick={e => handleSelected(e)} href="/balance">
                 <i className="fas fa-tachometer-alt fa-2x"></i>
                 <span>balance</span>
             </a>
-            <a id="nav__link-balance"onClick={e => handleSelected(e)} href="#">
+            <a id="nav__link-balance"onClick={e => handleSelected(e)} href="/dashboard">
                 <i className="fas fa-chart-pie fa-2x"></i>
                 <span>dashboard</span>
             </a>

@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
 import "./Objectives.scss"
 import CurrencyFormat from "react-currency-format"
+import Calendar from "../../components/datePicker"
+import moment from "moment"
+import { postNewGoal } from "./Obejctives.http"
 
 
 
@@ -52,6 +55,20 @@ export default function Goals ({}) {
             return {...formData}
         })
     }
+
+    const handleCloseCalendar = (date) =>{
+        console.log(date)
+        setFormData(formData =>{
+            formData.date = moment(date.date).format("YYYY-MM-DD")
+            return {...formData}
+        })
+    }
+
+    const handleSubmit = async () => {
+        formData.initialDate =  moment(new Date()).format("YYYY-MM-DD")
+        const goal = await postNewGoal(formData)
+        console.log(goal)
+    }
     const renderSelectedForm = ()=> {
         switch (selectedForm) {
 
@@ -76,7 +93,7 @@ export default function Goals ({}) {
                                 <option value={`buy_something`}>buy something I want</option>
                             </select>
                         </div>
-                        <button onClick={() => changeFieldOnScreenNext('objectives_form-amount')} className="objectives__next_btn">next</button>
+                        <button disabled={formData.kind ? false: true} onClick={() => changeFieldOnScreenNext('objectives_form-amount')} className="objectives__next_btn">next</button>
                     </div>
                 )
                 
@@ -97,7 +114,7 @@ export default function Goals ({}) {
                             </div>
                             <div className="objectives__nav_btns">
                             <button onClick={() => changeFieldOnScreenNext()} className="objectives__next_btn">back</button>
-                            <button onClick={() => changeFieldOnScreenNext('objectives_form-time')} className="objectives__next_btn">next</button>
+                            <button disabled={formData.amount.length === 0 ? true: false} onClick={() => changeFieldOnScreenNext('objectives_form-time')} className="objectives__next_btn">next</button>
                             </div>
                         </div>
                 )
@@ -107,12 +124,12 @@ export default function Goals ({}) {
                 return(
                     <div ref={DOMFieldOnScreen} className="objectives__form-time fade-in-start">
                         <p>a goal needs a time frame to be fullfiled. When do you expect or need to achieve this goal:</p>
-                        <div className="objectives__input">
-                            <h2>select a date</h2> 
+                        <div className="objectives__calendar">
+                            <Calendar onClose={handleCloseCalendar}></Calendar>
                         </div>
                         <div className="objectives__nav_btns">
                         <button onClick={() => changeFieldOnScreenNext()} className="objectives__next_btn">back</button>
-                        <button onClick={() => changeFieldOnScreenNext(`objectives_form-title`)} className="objectives__next_btn">next</button>
+                        <button disabled={formData.date ? false: true} onClick={() => changeFieldOnScreenNext(`objectives_form-title`)} className="objectives__next_btn">next</button>
                         </div>
                     </div>
                 )
@@ -133,7 +150,7 @@ export default function Goals ({}) {
                         </div>
                         <div className="objectives__nav_btns">
                         <button onClick={() => changeFieldOnScreenNext()} className="objectives__next_btn">back</button>
-                        <button onClick={() => changeFieldOnScreenNext(`objectives_form-recap`)} className="objectives__next_btn">next</button>
+                        <button disabled={formData.title ? false: true} onClick={() => changeFieldOnScreenNext(`objectives_form-recap`)} className="objectives__next_btn">next</button>
                         </div>
                     </div>
                 )
@@ -142,9 +159,10 @@ export default function Goals ({}) {
                 return(
                     <div ref={DOMFieldOnScreen} className="objectives__form-recap fade-in-start">
                         <p>so lest make sure that we have everything set up for your goal:</p>
+                        <i className="fas fa-award fa-2x"></i>
                         <h5>{formData.title}</h5>
                         <ul>
-                            <li>your goal: <br></br> {formData.kind}</li>
+                            <li>your goal: <br></br> {formData.kind.replaceAll("_"," ")}</li>
                             <li>the amount required:
                                 <br></br> 
                                 {<CurrencyFormat 
@@ -156,10 +174,10 @@ export default function Goals ({}) {
                             </li>
                             <li>when you expect to fullfil it: 
                                 <br></br> 
-                                {formData.date || "not defined yet"}</li>
+                                {formData.date}</li>
                         </ul>
                         <div className="objectives__nav_btns">
-                        <button onClick={() => changeFieldOnScreenNext(`objectives_form-recap`)} className="objectives__next_btn">create goal</button>
+                        <button onClick={() => handleSubmit()} className="objectives__next_btn">create goal</button>
                         </div>
                     </div>
                 )
