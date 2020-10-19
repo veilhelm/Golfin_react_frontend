@@ -22,30 +22,34 @@ function FormInput ({value, onChange, className, placeHolder, id}) {
         )
 }
 
-export default function Goals ({}) {
+export default function Goals () {
     const [initialPromptOpen, setInitialPromptOpen] = useState(true)
     const [selectedForm, setSelectedForm] = useState("")
-    const [formData, setFormData] = useState({amount:""})
+    const [formData, setFormData] = useState({amount:"", title:""})
     const [loading, setLoading] = useState(true)
     const goals = useSelector(state => state.goalsReducer.goals)
     const dispatch = useDispatch()
     const DOMInitialPrompt = useRef()
     const DOMFieldOnScreen = useRef()
     const DOMlist = useRef()
+    const DOMcontent = useRef()
 
     useEffect(() => {
        async function getUserGoals() {
            const goals = await getGoals()
+           if(goals.length > 0) DOMcontent.current.classList.add('hidden')
            dispatch(changeGoals(goals))
            setLoading(false)
        }
        getUserGoals()
     },[])
 
+    //--------------- FUNCTIONS TO CHANGE THE VIEW-----------------------------------
+
     const hideInitialPrompt = () => {
         setInitialPromptOpen(false)
         setTimeout(()=>{
-            DOMInitialPrompt.current.parentNode.removeChild(DOMInitialPrompt.current)
+            DOMInitialPrompt.current.classList.add('hidden')
             setSelectedForm("objectives__form-kind")
         }, 400)
     }
@@ -53,7 +57,8 @@ export default function Goals ({}) {
     const hideList = () => {
         DOMlist.current.classList.add('fade-out')
         setTimeout(() => {
-            DOMlist.current.parentNode.removeChild(DOMlist.current)
+            DOMlist.current.classList.add('hidden', "hidden-list")
+            DOMcontent.current.classList.remove('hidden')
             setSelectedForm("objectives__form-kind")
         }, 500)
     }
@@ -64,6 +69,9 @@ export default function Goals ({}) {
                 setSelectedForm(nextField)
             }, 500);
     }
+
+
+    //--------------- FUNCTIONS TO HANDLE THE INPUTS-----------------------------------
 
     const handleChangeInCurrency= ({value}) => {
         setFormData(formData =>{
@@ -81,7 +89,6 @@ export default function Goals ({}) {
     }
 
     const handleCloseCalendar = (date) =>{
-        console.log(date)
         setFormData(formData =>{
             formData.date = moment(date.date).format("YYYY-MM-DD")
             return {...formData}
@@ -91,9 +98,18 @@ export default function Goals ({}) {
     const handleSubmit = async () => {
         formData.initialDate =  moment(new Date()).format("YYYY-MM-DD")
         const goal = await postNewGoal(formData)
-        console.log(goal)
         dispatch(changeGoals([goal]))
+        DOMFieldOnScreen.current.classList.add('fade-out')
+            setTimeout(() => {
+                setSelectedForm("")
+                DOMcontent.current.classList.add('hidden')
+                DOMlist.current.classList.remove('hidden','hidden-list','fade-out')
+            }, 450);
     }
+
+
+    //--------------------------------- FORM -----------------------------------
+
     const renderSelectedForm = ()=> {
         switch (selectedForm) {
 
@@ -212,13 +228,15 @@ export default function Goals ({}) {
         }
     }
 
+
+    //--------------- RENDER OF THE PAGE-----------------------------------
     return (
         <div className="objectives__container">
             <div className="objectives__title">
                 <h1>objectives</h1> 
             </div>
 
-            <div className="objectives__content">
+            <div ref={DOMcontent} className="objectives__content">
 
                 {
                 !loading && goals.length === 0  && 
@@ -238,30 +256,30 @@ export default function Goals ({}) {
 
             {!loading && goals.length !== 0 && 
                 <div ref={DOMlist} className="objectives__list">
-                <List>
-                    {goals.map( goal => (
-                        <List.element key={`g-${goal._id}`} id={`g-${goal._id}`}>
-                            <List.title>{goal.title}</List.title>
-                            <List.section>
-                                <List.text>num quotes: {goal.numberOfQuotes}</List.text>
-                                <List.text>quote: {<CurrencyFormat
-                                value={goal.quote} 
-                                displayType={'text'} 
-                                thousandSeparator={true} 
-                                prefix={'$'}
-                                decimalScale={0}
-                                ></CurrencyFormat>}</List.text>
-                                <List.text>due to: {moment(goal.date).format("YYYY-MM-DD")}</List.text>
-                            </List.section>
-                            <List.icon>
-                                <i className="fas fa-award"></i>
-                            </List.icon>
-                        </List.element>
-                    ))
-                }
-                </List>
-                <button onClick={() => hideList()} className="objectives__add-objective">+</button>
-            </div>
+                    <List>
+                        {goals.map( goal => (
+                            <List.element key={`g-${goal._id}`} id={`g-${goal._id}`}>
+                                <List.title>{goal.title}</List.title>
+                                <List.section>
+                                    <List.text>num quotes: {goal.numberOfQuotes}</List.text>
+                                    <List.text>quote: {<CurrencyFormat
+                                    value={goal.quote} 
+                                    displayType={'text'} 
+                                    thousandSeparator={true} 
+                                    prefix={'$'}
+                                    decimalScale={0}
+                                    ></CurrencyFormat>}</List.text>
+                                    <List.text>due to: {moment(goal.date).format("YYYY-MM-DD")}</List.text>
+                                </List.section>
+                                <List.icon>
+                                    <i className="fas fa-award"></i>
+                                </List.icon>
+                            </List.element>
+                        ))
+                        }
+                    </List>
+                    <button onClick={() => hideList()} className="objectives__add-objective">+</button>
+                </div>
             }
         </div>
     )

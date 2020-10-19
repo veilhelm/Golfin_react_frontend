@@ -87,7 +87,7 @@ export default function LoginCard ({className}) {
                         ) : null}
                         <div>
                             <MorphicButton className="login__btn">login</MorphicButton>
-                            <a href="#" className="login__forgot">forgot password?</a>
+                            <a href="/forgotPassword" className="login__forgot">forgot password?</a>
                         </div>
                     </MorphCard>
                 </Form>

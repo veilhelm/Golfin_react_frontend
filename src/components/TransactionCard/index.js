@@ -103,7 +103,7 @@ export default function TransactionCard ({transaction}) {
         if(windowWidth <= 768 ) limit = 4
         if(windowWidth <= 600 ) limit = 3
         if(windowWidth <= 430 ) limit = 2
-        return tags.slice(0, limit).map( tag => <Tag>{tag}</Tag>)
+        return tags.slice(0, limit).map( tag => <Tag key={tag}>{tag}</Tag>)
     }
 
     return (

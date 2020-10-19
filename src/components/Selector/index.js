@@ -51,7 +51,7 @@ const StyledSelect = styled.select`
 
 export default function Selector ({className, name, id, options, kind, onChange}) {
     
-    const renderOptions = options.map(option => <option value={option}>{option}</option>)
+    const renderOptions = options.map(option => <option key={option} value={option}>{option}</option>)
     
     return(
         <SelectorWrapper className={className}>

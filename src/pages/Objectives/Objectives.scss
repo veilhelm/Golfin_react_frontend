@@ -33,7 +33,7 @@
 }
 
 .objectives__content{
-    margin: 0 47.5px;
+    margin: 0 20px;
     max-width: 500px;
 
     .fa-award{
@@ -60,6 +60,9 @@
 }
 
 .hidden{
+    display:none;
+}
+.hidden-list.hidden{
     display:none;
 }
 
@@ -170,7 +173,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     justify-content: center;
 }
 

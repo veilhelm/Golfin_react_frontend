@@ -64,7 +64,7 @@ export default function MainHeroSection (){
             dispatch(setYearlyTotalsToRender(totals.years))
             dispatch(setMonthlyTotalsToRender(totals.months))
         } catch (error) {
-            console.log({errorFetch: error})
+            
         }
     }
 
