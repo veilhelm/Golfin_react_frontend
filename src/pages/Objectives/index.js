@@ -6,9 +6,8 @@ import moment from "moment"
 import { getGoals, postNewGoal } from "./Obejctives.http"
 import List from "../../components/List"
 import { useDispatch, useSelector } from "react-redux"
-import { changeGoals } from "../../reducers/goalsReducer.actions"
-
-
+import { changeGoals,  updatePaymentsRecords } from "../../reducers/goalsReducer.actions"
+import PaymentsGoalsChart from "../../components/AreaVsLineChart"
 
 function FormInput ({value, onChange, className, placeHolder, id}) {
         return (
@@ -27,12 +26,15 @@ export default function Goals () {
     const [selectedForm, setSelectedForm] = useState("")
     const [formData, setFormData] = useState({amount:"", title:""})
     const [loading, setLoading] = useState(true)
+    const [selectedGoalData, setSelectedGoalData] = useState('chart')
+    const [selectedGoal, setSelectedGoal] = useState("")
     const goals = useSelector(state => state.goalsReducer.goals)
     const dispatch = useDispatch()
     const DOMInitialPrompt = useRef()
     const DOMFieldOnScreen = useRef()
     const DOMlist = useRef()
     const DOMcontent = useRef()
+    const DOMchart = useRef()
 
     useEffect(() => {
        async function getUserGoals() {
@@ -55,8 +57,10 @@ export default function Goals () {
     }
 
     const hideList = () => {
+        DOMchart.current.classList.add('fade-out')
         DOMlist.current.classList.add('fade-out')
         setTimeout(() => {
+            DOMchart.current.classList.add('hidden', 'hidden-list')
             DOMlist.current.classList.add('hidden', "hidden-list")
             DOMcontent.current.classList.remove('hidden')
             setSelectedForm("objectives__form-kind")
@@ -64,12 +68,16 @@ export default function Goals () {
     }
 
     const changeFieldOnScreenNext = (nextField) => {
-            DOMFieldOnScreen.current.classList.add('fade-out')
-            setTimeout(() => {
-                setSelectedForm(nextField)
-            }, 500);
+        DOMFieldOnScreen.current.classList.add('fade-out')
+        setTimeout(() => {
+            setSelectedForm(nextField)
+        }, 500);
     }
 
+    const renderSelectedGoalInfo = (selected) => {
+        if(selected ==="chart") return (<PaymentsGoalsChart goalId={selectedGoal}></PaymentsGoalsChart>)
+        if(selected === "data") return (<div><h4>data to display</h4></div>)
+    }
 
     //--------------- FUNCTIONS TO HANDLE THE INPUTS-----------------------------------
 
@@ -97,13 +105,15 @@ export default function Goals () {
 
     const handleSubmit = async () => {
         formData.initialDate =  moment(new Date()).format("YYYY-MM-DD")
-        const goal = await postNewGoal(formData)
+        const {goal, payment} = await postNewGoal(formData)
         dispatch(changeGoals([goal]))
+        dispatch(updatePaymentsRecords([payment]))
         DOMFieldOnScreen.current.classList.add('fade-out')
             setTimeout(() => {
                 setSelectedForm("")
                 DOMcontent.current.classList.add('hidden')
                 DOMlist.current.classList.remove('hidden','hidden-list','fade-out')
+                DOMchart.current.classList.remove('hidden','hidden-list','fade-out')
             }, 450);
     }
 
@@ -250,15 +260,22 @@ export default function Goals () {
                     <button onClick={() => hideInitialPrompt()} className="objectives__add-objective">+</button>
                 </div>
                 }
-
                 {renderSelectedForm()}
             </div>
 
-            {!loading && goals.length !== 0 && 
+            {!loading && goals.length !== 0 &&
+            <>
+                <div ref={DOMchart} className="objectives__chart">
+                    {renderSelectedGoalInfo(selectedGoalData)}
+                </div>
                 <div ref={DOMlist} className="objectives__list">
                     <List>
                         {goals.map( goal => (
-                            <List.element key={`g-${goal._id}`} id={`g-${goal._id}`}>
+                            <List.element 
+                                key={`g-${goal._id}`} 
+                                id={`g-${goal._id}`}
+                                onClick={(id) => setSelectedGoal(id)}
+                            >
                                 <List.title>{goal.title}</List.title>
                                 <List.section>
                                     <List.text>num quotes: {goal.numberOfQuotes}</List.text>
@@ -278,8 +295,13 @@ export default function Goals () {
                         ))
                         }
                     </List>
+                    <div className="objectives__select-goal-btns">
+                        <span onClick={(e) => setSelectedGoalData('chart')} className="objectives__select-goal left"></span>
+                        <span onClick={(e) => setSelectedGoalData('data')} className="objectives__select-goal right"></span>
+                    </div>
                     <button onClick={() => hideList()} className="objectives__add-objective">+</button>
                 </div>
+            </>
             }
         </div>
     )

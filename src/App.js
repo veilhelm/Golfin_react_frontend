@@ -8,14 +8,32 @@ import Goals from './pages/Objectives';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import "./components/datePicker/DatePicker.scss"
+import { getPayments } from './pages/Objectives/Obejctives.http';
+import { useDispatch } from 'react-redux';
+import { changePaymentsRecords } from './reducers/goalsReducer.actions';
 
 
 function PrivateRoute (props) {
   const history = useHistory()
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token') 
   useEffect(() => {
-    const token = localStorage.getItem('token') 
+    async function getUserPayments(){
+      try {
+        const payments = await getPayments()
+        dispatch(changePaymentsRecords(payments))
+      } catch (error) {
+        if(error.status === 401){
+          localStorage.removeItem("token")
+          history.push("/login")
+        } 
+      }
+    }
     if(!token) history.push("/login")
+    else getUserPayments()
   })
+
+
 return <Route {...props}></Route>
 }
 
@@ -24,10 +42,10 @@ function App() {
     <div className="MainContainer">
       <Router>
         <Switch>
-          <Route exact path='/balance' component={MainView}></Route>
+          <PrivateRoute exact path='/balance' component={MainView}></PrivateRoute>
           <Route exact path='/login' component={Login}></Route>
           <Route exact path="/register" component={Register}></Route>
-          <Route exact path="/goals" component={Goals}></Route>
+          <PrivateRoute exact path="/goals" component={Goals}></PrivateRoute>
         </Switch> 
       </Router>
         <NavBar></NavBar>

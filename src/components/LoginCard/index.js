@@ -28,7 +28,7 @@ export default function LoginCard ({className}) {
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
           toast.addEventListener('mouseleave', Swal.resumeTimer)
-          history.push("/")
+          history.push("/balance")
         }
       })
     

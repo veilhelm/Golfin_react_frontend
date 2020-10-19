@@ -33,3 +33,18 @@ export const getGoals = async () => {
         throw error
     }
 }
+export const getPayments = async () => {
+    try {
+        const {data} = await axios({
+            headers:{
+                Authorization: "Bearer " + localStorage.getItem("token")
+            },
+            method: "GET",
+            baseURL: process.env.REACT_APP_QUERY_SERVICE_URL,
+            url:"payments"
+        })
+        return data
+    } catch (error) {
+        throw error
+    }
+}

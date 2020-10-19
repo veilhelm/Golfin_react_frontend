@@ -10,10 +10,11 @@ export default function List ({children, className= ""}) {
     )
 }
 
-List.element = function ({children, className="", id}){
+List.element = function ({children, className="", id, onClick}){
     const handleClick = () => {
         document.querySelectorAll('.list__element').forEach( element => element.classList.remove('selected'))
         document.querySelector(`.list__element[id=${id}]`).classList.add('selected')
+        onClick(id)
     }
 
     return(
