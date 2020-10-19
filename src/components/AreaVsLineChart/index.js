@@ -9,7 +9,6 @@ import "./AreaVsLineChart.scss"
 //               {name: 'Page F', uv: 1400, pv: 680, amt: 1700}];
 
 const PaymentsGoalsChart = ({goalId = ""}) => {
-    console.log(goalId.split("-")[1])
     const payments = useSelector(state => state.goalsReducer.payments)
     const payment = payments.find( payment => payment.goalId === goalId.split("-")[1]) || {}
     const data = payment.payments

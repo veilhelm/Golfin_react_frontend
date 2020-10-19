@@ -8,6 +8,9 @@ import List from "../../components/List"
 import { useDispatch, useSelector } from "react-redux"
 import { changeGoals,  updatePaymentsRecords } from "../../reducers/goalsReducer.actions"
 import PaymentsGoalsChart from "../../components/AreaVsLineChart"
+import SimpleBarReact from "simplebar-react";
+import "simplebar/src/simplebar.css";
+import GoalsDataCard from "../../components/GoalsDataCard"
 
 function FormInput ({value, onChange, className, placeHolder, id}) {
         return (
@@ -76,7 +79,7 @@ export default function Goals () {
 
     const renderSelectedGoalInfo = (selected) => {
         if(selected ==="chart") return (<PaymentsGoalsChart goalId={selectedGoal}></PaymentsGoalsChart>)
-        if(selected === "data") return (<div><h4>data to display</h4></div>)
+        if(selected === "data") return (<GoalsDataCard goalId={selectedGoal}></GoalsDataCard>)
     }
 
     //--------------- FUNCTIONS TO HANDLE THE INPUTS-----------------------------------
@@ -265,9 +268,11 @@ export default function Goals () {
 
             {!loading && goals.length !== 0 &&
             <>
-                <div ref={DOMchart} className="objectives__chart">
-                    {renderSelectedGoalInfo(selectedGoalData)}
-                </div>
+                <SimpleBarReact style={{ maxHeight: 420, minWidth: 320}}>
+                    <div ref={DOMchart} className="objectives__chart">
+                        {renderSelectedGoalInfo(selectedGoalData)}
+                    </div>
+                </SimpleBarReact>
                 <div ref={DOMlist} className="objectives__list">
                     <List>
                         {goals.map( goal => (

@@ -175,15 +175,14 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-top: 25px;
 }
 
 .objectives__chart{
     display: grid;
-    grid-template-rows: 1fr min-content;
+    grid-auto-rows: min-content;
     place-items: center;
     height: 400px;
-    margin-bottom: 20px;
-    overflow-y: scroll;
 }
 
 .objectives__select-goal{
