@@ -83,8 +83,7 @@ class MainChart extends React.Component{
         activeIndex={this.state.activeIndex}
         activeShape={renderActiveShape}
         startAngle={180} 
-        endAngle={0}
-        dataKey="balance" 
+        endAngle={0} 
         data={this.props.data}
         cx={(this.state.width/2)-5} 
         cy={this.state.height} 

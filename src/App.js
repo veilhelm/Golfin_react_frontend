@@ -11,6 +11,7 @@ import "./components/datePicker/DatePicker.scss"
 import { getPayments } from './pages/Objectives/Obejctives.http';
 import { useDispatch } from 'react-redux';
 import { changePaymentsRecords } from './reducers/goalsReducer.actions';
+import Landing from './pages/LandingPage';
 
 
 function PrivateRoute (props) {
@@ -23,7 +24,7 @@ function PrivateRoute (props) {
         const payments = await getPayments()
         dispatch(changePaymentsRecords(payments))
       } catch (error) {
-        if(error.status === 401){
+        if(error.response.status === 401){
           localStorage.removeItem("token")
           history.push("/login")
         } 
@@ -45,10 +46,11 @@ function App() {
           <PrivateRoute exact path='/balance' component={MainView}></PrivateRoute>
           <Route exact path='/login' component={Login}></Route>
           <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/" component={Landing}></Route>
           <PrivateRoute exact path="/goals" component={Goals}></PrivateRoute>
         </Switch> 
-      </Router>
         <NavBar></NavBar>
+      </Router>
     </div>
   );
 }

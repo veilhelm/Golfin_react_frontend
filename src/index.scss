@@ -26,6 +26,12 @@ body {
   margin: 0 0 12vh 0;
 }
 
+@media (min-width: $breakpoint-tablet) {
+  body {
+    margin: 40px 0 0 0;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

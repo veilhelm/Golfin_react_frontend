@@ -63,7 +63,7 @@ export default function Register () {
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
           toast.addEventListener('mouseleave', Swal.resumeTimer)
-          history.push("/")
+          history.push("/balance")
         }
       })
 
