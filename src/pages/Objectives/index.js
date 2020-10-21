@@ -42,7 +42,10 @@ export default function Goals () {
     useEffect(() => {
        async function getUserGoals() {
            const goals = await getGoals()
-           if(goals.length > 0) DOMcontent.current.classList.add('hidden')
+           if(goals.length > 0) {
+               DOMcontent.current.classList.add('hidden')
+               setSelectedGoal(`g-${goals[0]._id}`)
+            }
            dispatch(changeGoals(goals))
            setLoading(false)
        }
@@ -110,6 +113,7 @@ export default function Goals () {
         formData.initialDate =  moment(new Date()).format("YYYY-MM-DD")
         const {goal, payment} = await postNewGoal(formData)
         dispatch(changeGoals([goal]))
+        setSelectedGoal(`g-${goal._id}`)
         dispatch(updatePaymentsRecords([payment]))
         DOMFieldOnScreen.current.classList.add('fade-out')
             setTimeout(() => {

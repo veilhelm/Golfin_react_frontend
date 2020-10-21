@@ -12,6 +12,7 @@ import { getPayments } from './pages/Objectives/Obejctives.http';
 import { useDispatch } from 'react-redux';
 import { changePaymentsRecords } from './reducers/goalsReducer.actions';
 import Landing from './pages/LandingPage';
+import { changeUserIsLogged } from './reducers/userDataReducer.actions';
 
 
 function PrivateRoute (props) {
@@ -23,6 +24,7 @@ function PrivateRoute (props) {
       try {
         const payments = await getPayments()
         dispatch(changePaymentsRecords(payments))
+        dispatch(changeUserIsLogged(true))
       } catch (error) {
         if(error.response.status === 401){
           localStorage.removeItem("token")
@@ -31,7 +33,9 @@ function PrivateRoute (props) {
       }
     }
     if(!token) history.push("/login")
-    else getUserPayments()
+    else{
+      getUserPayments()
+    } 
   })
 
 

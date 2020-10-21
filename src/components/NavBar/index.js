@@ -39,12 +39,22 @@ export default function NavBar ({className =""}) {
                     <img  src={Logo}></img>
                     <h1>golfin</h1>
                 </div>
-                {!isLogged &&
                 <div className="nav__web-links"> 
+                {!isLogged &&
+                <>
                     <a id="nav__link-login" href="/login">login</a>
                     <a id="nav__link-login" href="/register">sign Up</a>
-                </div>
+                </>
                 }
+                {isLogged &&
+                <>
+                    <a id="nav__link-login" href="/balance">balance</a>
+                    <a id="nav__link-login" href="/goals">goals</a>
+                    <a id="nav__link-login" href="/profile">profile</a>
+                    <a id="nav__link-login" href="/profile">dashboard</a>
+                </>
+                }
+                </div>
             </nav>
         )
     }
@@ -56,12 +66,22 @@ export default function NavBar ({className =""}) {
                     <img  src={Logo}></img>
                     <h1>golfin</h1>
                 </div>
-                {!isLogged &&
                 <div className="nav__web-links"> 
+                {!isLogged &&
+                <>
                     <a id="nav__link-login" href="/login">login</a>
                     <a id="nav__link-login" href="/register">sign Up</a>
-                </div>
+                </>
                 }
+                {isLogged &&
+                <>
+                    <a id="nav__link-login" href="/balance">balance</a>
+                    <a id="nav__link-login" href="/goals">goals</a>
+                    <a id="nav__link-login" href="/profile">profile</a>
+                    <a id="nav__link-login" href="/profile">dashboard</a>
+                </>
+                }
+                </div>
             </nav>
         )
     }

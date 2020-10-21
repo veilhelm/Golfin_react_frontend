@@ -8,6 +8,8 @@ import * as Yup from "yup"
 import { postLoginUser } from "./LoginCard.http"
 import { useHistory } from "react-router-dom"
 import Swal from "sweetalert2"
+import { useDispatch } from "react-redux"
+import { changeUserIsLogged } from "../../reducers/userDataReducer.actions"
 
 const MorphCard = styled.div`
     min-width: 300px;
@@ -19,6 +21,7 @@ const MorphCard = styled.div`
 
 export default function LoginCard ({className}) {
     const history = useHistory()
+    const dispatch = useDispatch()
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -35,8 +38,8 @@ export default function LoginCard ({className}) {
     const handleSubmit = async (values) => {
         try {
             const token = await postLoginUser(values)
-            console.log(token)
             localStorage.setItem("token", token)
+            dispatch(changeUserIsLogged(true))
             Toast.fire({
                 icon: 'success',
             title: 'Signed in successfully'

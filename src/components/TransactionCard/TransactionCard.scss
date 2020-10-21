@@ -35,7 +35,7 @@
     justify-items: center;
     h3{
         text-transform: uppercase;
-        justify-self: start;
+        justify-self: center;
         align-self: end;
         grid-area: category;
 
@@ -43,7 +43,7 @@
     p{
         opacity: 0.7;
         grid-area: description;
-        justify-self: start;
+        justify-self: center;
         align-self: start;
     }
 
@@ -112,7 +112,7 @@
         .transaction-card-tags{
             justify-self: start;
             align-self: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
     }
 }

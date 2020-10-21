@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux"
 import { deleteTransactionToRender, updateTotalsToRender } from "../../reducers/transactionToRenderReducer.actions"
 
 const Card = styled.div`
+    width:95%;
+    max-width: 1000px;
     background: #333333;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
@@ -44,8 +46,8 @@ export default function TransactionCard ({transaction}) {
 
     const DOMcard = useRef(null)
     const observerObtions = {
-        threshold: 0.7,
-        rootMargin: "0px 0px -80px 0px"
+        threshold: 0.5,
+        rootMargin: "0px 0px -50px 0px"
     }
 
     const observer = new IntersectionObserver( (entries) => {
@@ -69,13 +71,16 @@ export default function TransactionCard ({transaction}) {
     })
 
     const handleDelete= async (DOMelement) => {
+        DOMcard.current.classList.add("delete")
         const id = DOMelement.getAttribute("data-id")
         try {
-            await deleteTransaction(id)
-            dispatch(updateTotalsToRender(id,'transactionDeleted'))
-            dispatch(deleteTransactionToRender(id))
+            setTimeout(async () => {
+                await deleteTransaction(id)
+                dispatch(updateTotalsToRender(id,'transactionDeleted'))
+                dispatch(deleteTransactionToRender(id))
+            }, 200);
         } catch (error) {
-            
+            DOMcard.current.classList.remove("delete")
         }
     }
 
@@ -91,7 +96,6 @@ export default function TransactionCard ({transaction}) {
         setDeleteBtnPosition(x)
         if(x < -15) setShowDelete(true)
         if(deleteBtnPosition<-200){
-            DOMcard.current.classList.add("delete")
             setDeleted(true)
         } 
     }
@@ -128,10 +132,12 @@ export default function TransactionCard ({transaction}) {
                 onDrag={handleDrag}
                 onStop={handleOnStop}
                 position={{x:deleteBtnPosition, y: 0}}
+                disabled={windowWidth>=728? true: false}
             >
                 <RoundedButton 
                 size="65px" 
                 className="delete-btn"
+                onClick={() => windowWidth>=728 ? handleDelete(DOMcard.current): null}
                 >x</RoundedButton>
             </Draggable>
             {showDelete && 

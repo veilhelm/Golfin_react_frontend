@@ -1,5 +1,5 @@
 .objectives__container{
-    min-height: 90vh;
+    min-height: 100vh;
     height: fit-content;
     background: linear-gradient(135deg, rgba(35,35,37,0.8), rgba(60,181,185, 0.5), rgba(74,65,65,1));
     padding: 40px 0;
@@ -12,6 +12,7 @@
     display: grid;
     align-items: center;
     justify-content: center;
+    justify-items: center;
     grid-template-rows: min-content 0.8fr;
     grid-template-columns: 0.8fr;
     p{
@@ -176,6 +177,7 @@
     justify-content: center;
     position: relative;
     margin-top: 25px;
+    width: 95%;
 }
 
 .objectives__chart{

@@ -3,8 +3,10 @@ import "./LandingPage.scss"
 import mockup from "../../resources/mockup2.png"
 import mockup2 from "../../resources/mockup.svg"
 import Jumbotron from "../../components/Jumbotron"
+import { useHistory } from "react-router-dom"
 
 export default function Landing () {
+    const history = useHistory()
 
     const paragraphs = [
         {text: "Set your goals and recieve a custom financial plan that will help you get there", img: <i class="fas fa-award fa-3x"></i>, direction: 'right'},
@@ -57,7 +59,7 @@ export default function Landing () {
             <footer className ="landing__footer">
                 <div className="landing__footer-call">
                     <h3>sign up for free</h3>
-                    <button>sign up</button>
+                    <button onClick={()=> history.push("/register")}>sign up</button>
                 </div>
                 <div className="landing__footer-copyright">
                     <p>created by: Veilhelm Alexander Guarin</p>

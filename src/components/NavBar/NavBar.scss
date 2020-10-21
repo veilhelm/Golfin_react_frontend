@@ -61,6 +61,11 @@
             font-size: 1.6rem;
             text-transform: uppercase;
             margin-left: 20px;
+            transition: all .3s ease-in-out;
+            &:hover{
+                transform: translateY(-2px);
+                color: white;
+            }
         }
     }
 }
@@ -71,6 +76,10 @@
     .nav__web-links{
         a{
             color: white;
+            &:hover{
+                transform: translateY(-2px);
+                color:  rgba(83,140,142,1);
+            }
         }
     }
 }
