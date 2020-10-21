@@ -28,12 +28,15 @@ export default function Landing () {
     })
 
     const renderParagraphs = (paragraphs) => {
-        return paragraphs.map( paragraph => (
-            <Jumbotron direction={paragraph.direction}>
+        return paragraphs.map( (paragraph, index )=> {
+            const customClass = `jumbo${index}`
+            return (
+            <Jumbotron className={customClass} direction={paragraph.direction}>
                 <Jumbotron.image>{paragraph.img}</Jumbotron.image>
                 <Jumbotron.text>{paragraph.text}</Jumbotron.text>
             </Jumbotron>
-        ))
+            )
+        })
     }
 
     return(

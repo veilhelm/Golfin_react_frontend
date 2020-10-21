@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./NavBar.scss"
 import Logo from "../../resources/logo2.svg"
 import { useSelector } from "react-redux"
-import { useLocation } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 
+
+const changeNavOnScroll = (DOMelement) => {
+    if(!DOMelement.current) return
+    if(document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) DOMelement.current.classList.add('not-on-top')
+    else DOMelement.current.classList.remove('not-on-top')
+}
 
 export default function NavBar ({className =""}) {
     const [windowWidth, setWidth] = useState(window.innerWidth)
     const isLogged = useSelector(state => state.userDataReducer.isLogged)
     const location = useLocation()
+    const history = useHistory()
+    const DOMnav = useRef()
 
     const updateWidth = (e) => {
         setWidth(window.innerWidth)
@@ -18,17 +26,23 @@ export default function NavBar ({className =""}) {
         window.addEventListener('resize', updateWidth)
     })
 
+    useEffect(()=>{
+        window.onscroll = function(){
+            changeNavOnScroll(DOMnav)
+        }
+    })
+
     if(location.pathname ==="/"){
         return (
-            <nav className={`navBar__web ${className}`}>
-                <div className="nav_web-logo">
-                    <img src={Logo}></img>
+            <nav ref={DOMnav} className={`navBar__web ${className}`}>
+                <div onClick={()=> history.push("/")} className="nav_web-logo">
+                    <img  src={Logo}></img>
                     <h1>golfin</h1>
                 </div>
                 {!isLogged &&
                 <div className="nav__web-links"> 
                     <a id="nav__link-login" href="/login">login</a>
-                    <a id="nav__link-login" href="/login">sign Up</a>
+                    <a id="nav__link-login" href="/register">sign Up</a>
                 </div>
                 }
             </nav>
@@ -37,15 +51,15 @@ export default function NavBar ({className =""}) {
 
     if(windowWidth >= 760){
         return (
-            <nav className={`navBar__web ${className}`}>
-                <div className="nav_web-logo">
-                    <img src={Logo}></img>
+            <nav ref={DOMnav} className={`navBar__web ${className}`}>
+                <div onClick={()=> history.push("/")} className="nav_web-logo">
+                    <img  src={Logo}></img>
                     <h1>golfin</h1>
                 </div>
                 {!isLogged &&
                 <div className="nav__web-links"> 
                     <a id="nav__link-login" href="/login">login</a>
-                    <a id="nav__link-login" href="/login">sign Up</a>
+                    <a id="nav__link-login" href="/register">sign Up</a>
                 </div>
                 }
             </nav>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import "./Jumbotron.scss"
 
-export default function Jumbotron({direction, children}){
+export default function Jumbotron({direction, children, className}){
 
     const DOMjumbotron = useRef()
 
@@ -21,7 +21,7 @@ export default function Jumbotron({direction, children}){
     })
 
     return(
-        <div ref={DOMjumbotron} className={`jumbotron__wrapper ${direction}`}>
+        <div ref={DOMjumbotron} className={`jumbotron__wrapper ${direction} ${className}`}>
             {children}
         </div>
     )
